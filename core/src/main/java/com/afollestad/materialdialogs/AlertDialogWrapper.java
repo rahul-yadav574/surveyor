@@ -21,6 +21,7 @@ import java.util.List;
 /**
  * Convenience class for migrating old dialogs code. Not all methods are implemented yet. Using MaterialDialog.Builder directly is recommended.
  */
+//Trial Comment
 public class AlertDialogWrapper {
 
     public static class Builder {
