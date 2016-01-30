@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">surveyapp</string>
+    <string name="title_activity_landing">LandingActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="hint_login_id_input">Enter E-mail Id</string>
+    <string name="hint_login_password_input">Enter Password</string>
+    <string name="btn_login">Log In</string>
+    <string name="btn_forgot_password">Forgot Password</string>
+</resources>
