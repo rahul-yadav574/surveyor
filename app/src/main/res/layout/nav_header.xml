@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_centerVertical="true"
+        android:layout_height="80dp"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/ic_profile"
+        android:layout_width="80dp"/>
+
+    <LinearLayout
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_alignTop="@+id/profileImage"
+        android:layout_alignBottom="@+id/profileImage"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/profileImage"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:textSize="20sp"
+            android:id="@+id/navHeaderUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="userName"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
+        <TextView
+            android:textSize="20sp"
+            android:id="@+id/navHeaderUserEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="userEmail" />
+        <TextView
+            android:textSize="20sp"
+            android:id="@+id/navHeaderUserPlan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="userPlan" />
+    </LinearLayout>
+</RelativeLayout>
