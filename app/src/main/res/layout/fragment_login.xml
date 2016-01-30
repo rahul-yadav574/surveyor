@@ -6,14 +6,22 @@
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:background="@color/md_divider_black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"
+                android:text="@string/sign_in_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_marginTop="20dp"
@@ -60,15 +68,89 @@
                 android:text="@string/btn_login"/>
             <Button
                 android:clickable="true"
-                android:background="@color/colorPrimary"
+                android:background="@android:color/transparent"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:layout_marginTop="10dp"
+                android:textColor="@color/colorAccent"
                 android:layout_marginRight="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/forgotPasswordButton"
-                android:text="@string/btn_forgot_password"/>
+                android:id="@+id/troubleSignInButton"
+                android:text="@string/btn_trouble_sign_in"/>
+
+
+            <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/separatorText"
+                    android:layout_toStartOf="@+id/separatorText"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/leftSeparator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@drawable/divider_horizontal"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/separatorText"
+                    android:layout_centerInParent="true"
+                    android:text="@string/separator_or"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/separatorText"
+                    android:layout_toEndOf="@+id/separatorText"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/rightSeparator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@drawable/divider_horizontal"/>
+            </RelativeLayout>
+
+            <Button xmlns:app="http://schemas.android.com/apk/res-auto"
+                style="@style/com_facebook_button"
+                android:text="@string/sign_in_fb"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:paddingLeft="40dp"
+                android:drawablePadding="-20dp"
+                android:gravity="center"
+                android:drawableLeft="@drawable/com_facebook_button_icon"
+                android:drawableStart="@drawable/com_facebook_button_icon"
+                android:id="@+id/facebookLoginButton"
+                android:layout_margin="20dp"
+                android:layout_width="match_parent"
+                android:textColor="@android:color/white"
+                android:layout_height="wrap_content"/>
+
+            <Button xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:background="@android:color/holo_blue_dark"
+                android:text="@string/sign_in_google"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:paddingLeft="30dp"
+                android:drawablePadding="-20dp"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:drawableLeft="@drawable/common_google_signin_btn_icon_light"
+                android:drawableStart="@drawable/common_google_signin_btn_icon_light"
+                android:id="@+id/googleLoginButton"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </ScrollView>
 
