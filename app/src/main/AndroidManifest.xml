@@ -8,13 +8,19 @@
         android:label="@string/app_name"
         android:theme="@style/MaterialTheme" >
         <activity
-            android:name=".LandingActivity"
-            android:label="@string/title_activity_landing">
+            android:name=".Activities.ActivityLoginSignUp"
+            android:label="@string/title_activity_activity_login_sign_up" >
 
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".Activities.LandingActivity"
+            android:label="@string/title_activity_landing" >
         </activity>
     </application>
 
