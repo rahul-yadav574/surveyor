@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="@string/nav_home"
-        android:id="@+id/navHome"/>
-    <item android:title="@string/nav_my_surveys"
-        android:id="@+id/navMySurvey"/>
-    <item android:title="@string/nav_upgrade"
-        android:id="@+id/navUpgrade"/>
-    <item android:title="@string/nav_about"
-        android:id="@+id/navAbout"/>
-    <item android:title="@string/nav_help"
-        android:id="@+id/navHelp"/>
-    <item android:title="@string/nav_feedback"
-        android:id="@+id/navFeedBack"/>
+
+    <group android:checkableBehavior="single">
+        <item android:title="@string/nav_home"
+            android:id="@+id/navHome"/>
+        <item android:title="@string/nav_my_surveys"
+            android:id="@+id/navMySurvey"/>
+        <item android:title="@string/nav_upgrade"
+            android:id="@+id/navUpgrade"/>
+        <item android:title="@string/nav_about"
+            android:id="@+id/navAbout"/>
+        <item android:title="@string/nav_help"
+            android:id="@+id/navHelp"/>
+        <item android:title="@string/nav_feedback"
+            android:id="@+id/navFeedBack"/>
+
+    </group>
 </menu>

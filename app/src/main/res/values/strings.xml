@@ -36,4 +36,7 @@
     <string name="err_password_input">Not A Valid Password</string>
     <string name="err_name_input">Not A Valid E-mail</string>
     <string name="err_confirm_password_input">Both Password Should Be Same</string>
+    <string name="nav_selected_id">Selected Item Id</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
 </resources>

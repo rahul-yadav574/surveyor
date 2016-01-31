@@ -1,6 +1,7 @@
 package com.surveyapp.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.surveyapp.Activities.ActivityLoginSignUp;
+import com.surveyapp.Activities.LandingActivity;
 import com.surveyapp.R;
 import com.surveyapp.Utils;
 
@@ -103,6 +105,9 @@ public class FragmentLogin extends Fragment {
         }
 
         //Do The Login Stuff Here
+
+        Intent intent = new Intent(getActivity(), LandingActivity.class);
+        startActivity(intent);
 
         Toast.makeText(getActivity(), "Thank You!", Toast.LENGTH_SHORT).show();
     }
