@@ -31,4 +31,5 @@
     <string name="nav_help">Help</string>
     <string name="nav_feedback">Feedback</string>
     <string name="nav_my_surveys">My Surveys</string>
+    <string name="title_activity_activity_login_sign_up">ActivityLoginSignUp</string>
 </resources>

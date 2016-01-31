@@ -1,5 +1,7 @@
 package com.surveyapp;
 
+import android.content.Context;
+
 /**
  * Created by arcks on 30/1/16.
  */
@@ -7,4 +9,5 @@ package com.surveyapp;
 
 
 public class Utils {
+
 }
