@@ -35,6 +35,13 @@ public class FragmentMySurvey extends Fragment {
         mySurveyList = (RecyclerView) rootView.findViewById(R.id.mySurveysList);
         addNewSurveyButton = (FloatingActionButton) rootView.findViewById(R.id.addNewSurveyButton);
 
+        addNewSurveyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         return rootView;
     }
 }
