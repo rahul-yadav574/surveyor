@@ -12,7 +12,7 @@ import com.surveyapp.Activities.ActivityLoginSignUp;
 import com.surveyapp.R;
 
 /**
- * Created by  on 31-01-2016.
+ * Created by Rahul Yadav on 31-01-2016.
  */
 public class LauncherSplash extends Fragment {
 

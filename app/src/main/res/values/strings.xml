@@ -32,4 +32,8 @@
     <string name="nav_feedback">Feedback</string>
     <string name="nav_my_surveys">My Surveys</string>
     <string name="title_activity_activity_login_sign_up">ActivityLoginSignUp</string>
+    <string name="err_email_input">Not A Valid E-mail</string>
+    <string name="err_password_input">Not A Valid Password</string>
+    <string name="err_name_input">Not A Valid E-mail</string>
+    <string name="err_confirm_password_input">Both Password Should Be Same</string>
 </resources>

@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content" />
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/signUpUserNameInputLayout"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -39,6 +40,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/signUpUserEmailInputLayout"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -55,6 +57,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/signUpPasswordInputLayout"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -71,6 +74,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/signUpConfirmPasswordInputLayout"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -88,6 +92,7 @@
 
 
             <Button
+                android:id="@+id/signUpButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
