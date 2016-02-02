@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textStyle="bold"
+            android:layout_marginTop="30dp"
+            android:textColor="@android:color/black"
+            android:text="@string/dialog_create_survey_dialog_title"
+            android:id="@+id/dialog_create_survey_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textStyle="bold"
+            android:textColor="@android:color/darker_gray"
+            android:text="@string/dialog_create_survey_tile_1"
+            android:id="@+id/dialog_create_survey_title_1"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_below="@+id/dialog_create_survey_title_1"
+            android:textColor="@android:color/darker_gray"
+            android:text="@string/dialog_create_survey_tile_2"
+            android:id="@+id/dialog_create_survey_title_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_below="@+id/dialog_create_survey_title_2"
+            android:textColor="@android:color/darker_gray"
+            android:text="@string/dialog_create_survey_tile_3"
+            android:id="@+id/dialog_create_survey_title_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </RelativeLayout>
+
+    <View
+        android:layout_marginTop="20dp"
+        android:background="@drawable/divider_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+    <Button
+        android:text="@string/dialog_btn_new_survey_text"
+        android:id="@+id/dialogCreateNewSurveyButton"
+        android:layout_width="match_parent"
+        android:background="@android:drawable/screen_background_light_transparent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:background="@drawable/divider_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+    <Button
+        android:text="@string/dialog_btn_browse_templates_text"
+        android:id="@+id/dialogCreateNewSurveyFromTemplateButton"
+        android:layout_width="match_parent"
+        android:background="@android:drawable/screen_background_light_transparent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:background="@drawable/divider_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+    <Button
+        android:text="@string/dialog_btn_cancel_text"
+        android:id="@+id/dialogCancelButton"
+        android:layout_width="match_parent"
+        android:background="@android:drawable/screen_background_light_transparent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -54,4 +54,11 @@
     <string name="title_tab_market_research">MARKET RESEARCH</string>
     <string name="title_tab_non_profit">NON PROFIT</string>
     <string name="title_tab_political">POLITICAL</string>
+    <string name="dialog_create_survey_dialog_title">Create Survey</string>
+    <string name="dialog_create_survey_tile_1">Start with one Of our expert survey </string>
+    <string name="dialog_create_survey_tile_2">templates or create  a new survey from</string>
+    <string name="dialog_create_survey_tile_3">scratch</string>
+    <string name="dialog_btn_new_survey_text">New Survey</string>
+    <string name="dialog_btn_browse_templates_text">Browse Template Gallery</string>
+    <string name="dialog_btn_cancel_text">Cancel</string>
 </resources>
