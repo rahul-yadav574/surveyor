@@ -39,4 +39,19 @@
     <string name="nav_selected_id">Selected Item Id</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
+    <string name="title_activity_templates">TemplatesActivity</string>
+    <string name="title_activity_edit_survey">EditSurveyActivity</string>
+    <string name="title_tab_most_popular">MOST POPULAR</string>
+    <string name="title_tab_community">COMMUNITY</string>
+    <string name="title_tab_customer_feedback">FEEDBACK</string>
+    <string name="title_tab_demographics">DEMOGRAPHICS</string>
+    <string name="title_tab_education">EDUCATION</string>
+    <string name="title_tab_events">EVENTS</string>
+    <string name="title_tab_health_care">HUMAN RESOURCES</string>
+    <string name="title_tab_human_resources">HUMAN RESOURCES</string>
+    <string name="title_tab_industry_specific">INDUSTRY SPECIFIC</string>
+    <string name="title_tab_just_for_fun">JUST FOR FUN</string>
+    <string name="title_tab_market_research">MARKET RESEARCH</string>
+    <string name="title_tab_non_profit">NON PROFIT</string>
+    <string name="title_tab_political">POLITICAL</string>
 </resources>

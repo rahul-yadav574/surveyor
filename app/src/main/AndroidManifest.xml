@@ -10,17 +10,23 @@
         <activity
             android:name=".Activities.ActivityLoginSignUp"
             android:label="@string/title_activity_activity_login_sign_up" >
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Activities.LandingActivity"
             android:label="@string/title_activity_landing" >
+        </activity>
+        <activity
+            android:name=".Activities.TemplatesActivity"
+            android:label="@string/title_activity_templates" >
+        </activity>
+        <activity
+            android:name=".Activities.EditSurveyActivity"
+            android:label="@string/title_activity_edit_survey" >
         </activity>
     </application>
 
