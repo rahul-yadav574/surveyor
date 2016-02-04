@@ -1,12 +1,16 @@
 package com.surveyapp.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,8 +22,15 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.surveyapp.Activities.ActivityLoginSignUp;
+import com.surveyapp.Activities.LandingActivity;
 import com.surveyapp.R;
+import com.surveyapp.SharedPrefUtil;
 import com.surveyapp.Utils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created Rahul Yadav by on 31-01-2016.
@@ -101,7 +112,12 @@ public class FragmentSignUp extends Fragment {
         }
 
         //Do The Sign Up Stuff Here
-        Toast.makeText(getActivity(),"Thank You ",Toast.LENGTH_SHORT).show();
+        if(Utils.isNetworkAvailable(getActivity())){
+            new SignUpProcess().execute(signUpUserNameInput.getText().toString(),signUpUserEmailInput.getText().toString(),signUpPasswordInput.getText().toString());
+        }
+        else{
+            Toast.makeText(getActivity(), "Check Device Connection", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -209,7 +225,64 @@ public class FragmentSignUp extends Fragment {
         }
 
         return true;
+    }
 
+
+
+    private class SignUpProcess extends AsyncTask<String,Void,String[]>{
+
+        @Override
+        protected void onPostExecute(String[] s) {
+            if(s!=null){
+                SharedPrefUtil.setUsername(getActivity(),s[0]);
+                SharedPrefUtil.setUserEmail(getActivity(),s[1]);
+                SharedPrefUtil.setUserPassword(getActivity(),s[2]);
+
+                Intent reachLandingActivity = new Intent(getActivity(), LandingActivity.class);
+                startActivity(reachLandingActivity);
+            }
+            else{
+                Toast.makeText(getActivity(),"Username already taken",Toast.LENGTH_SHORT).show();
+                signUpUserNameInput.requestFocus();
+            }
+        }
+
+        @Override
+        protected String[] doInBackground(String... params){
+            String username=params[0];
+            String email =params[1];
+            String password =params[2];
+            String completeUrl = ""; //will be changed when web service is created!
+            completeUrl.replace(" ", "%20");
+
+            JSONObject jsonObject = new JSONObject();
+            try{
+                jsonObject.put("username",username);
+                jsonObject.put("email",email);
+                jsonObject.put("password",password);
+            }catch (Exception e){
+                Log.d("error","creating json in fragment sign up");
+            }
+
+            jsonObject=Utils.postJSONObject(completeUrl,jsonObject);
+
+            try{
+
+                int status = jsonObject.getInt("status");
+                if(status==800)
+                {
+                    return params;
+                }
+                else if(status==801){
+                    return null;
+                }
+            }catch(JSONException exception){
+                Log.d("error","exception in retrieving json");
+            }
+
+            return null;
+        }
     }
 
 }
+
