@@ -1,5 +1,6 @@
 package com.surveyapp.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.surveyapp.Activities.TemplatesActivity;
 import com.surveyapp.R;
 import com.surveyapp.Utils;
 
@@ -20,6 +22,7 @@ import com.surveyapp.Utils;
 public class FragmentCreateNewSurvey extends Fragment {
 
     private Button createNewSurveyButton;
+    private MaterialDialog dialog;
 
 
     public FragmentCreateNewSurvey() {
@@ -37,6 +40,10 @@ public class FragmentCreateNewSurvey extends Fragment {
 
         createNewSurveyButton = (Button) rootView.findViewById(R.id.createNewSurveyButton);
 
+        dialog = new MaterialDialog.Builder(getActivity())
+                .customView(getDialogView(),false)
+                .build();
+
         createNewSurveyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,9 +55,9 @@ public class FragmentCreateNewSurvey extends Fragment {
     }
 
     private void showDialog(){
-        new MaterialDialog.Builder(getActivity())
-                .customView(getDialogView(),false)
-                .show();
+        if (dialog!=null && !dialog.isShowing()){
+            dialog.show();
+        }
     }
 
     private View getDialogView(){
@@ -71,18 +78,23 @@ public class FragmentCreateNewSurvey extends Fragment {
         createNewFromTemplate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"browse ",Toast.LENGTH_LONG).show();
+                startTemplateActivity();
             }
         });
 
         cancelDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"cancel",Toast.LENGTH_LONG).show();
+                if (dialog!=null && dialog.isShowing()){
+                    dialog.cancel();
+                }
             }
         });
         return dialogView;
     }
 
+    private void startTemplateActivity(){
+        startActivity(new Intent(getActivity(), TemplatesActivity.class));
+    }
 
 }
