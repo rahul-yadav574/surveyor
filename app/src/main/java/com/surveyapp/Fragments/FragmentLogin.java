@@ -8,6 +8,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +18,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
-
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.surveyapp.Activities.ActivityLoginSignUp;
 import com.surveyapp.Activities.LandingActivity;
 import com.surveyapp.R;
@@ -36,8 +42,25 @@ public class FragmentLogin extends Fragment {
     private Button loginButton;
     private Button troubleLoginButton;
     private Button googleLoginButton;
-    private Button fbLoginButton;
+    private LoginButton fbLoginButton;
 
+    private CallbackManager callbackManager;
+    private FacebookCallback facebookCallback = new FacebookCallback() {
+        @Override
+        public void onSuccess(Object o) {
+            /////stuff to be done
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+        @Override
+        public void onError(FacebookException error) {
+            Log.d("TAG","FacebookException in FragmentLogin");
+        }
+    };
 
     public FragmentLogin() {
     }
@@ -45,6 +68,7 @@ public class FragmentLogin extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         getActivity().setTitle(R.string.btn_login);
         ActivityLoginSignUp.toolbar.setVisibility(View.VISIBLE);
         ActivityLoginSignUp.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
@@ -61,9 +85,11 @@ public class FragmentLogin extends Fragment {
         loginIdInputLayout = (TextInputLayout) rootView.findViewById(R.id.loginIdInputLayout);
         loginPasswordInputLayout = (TextInputLayout) rootView.findViewById(R.id.loginPasswordInputLayout);
         loginButton = (Button) rootView.findViewById(R.id.loginButton);
-        fbLoginButton = (Button) rootView.findViewById(R.id.facebookLoginButton);
+        fbLoginButton = (LoginButton) rootView.findViewById(R.id.facebookLoginButton);
         googleLoginButton = (Button) rootView.findViewById(R.id.googleLoginButton);
 
+        callbackManager = CallbackManager.Factory.create();
+        fbLoginButton.registerCallback(callbackManager,facebookCallback);
 
         loginIdInput.addTextChangedListener(new MyTextWatcher(loginIdInput));
         loginPasswordInput.addTextChangedListener(new MyTextWatcher(loginPasswordInput));
@@ -76,6 +102,18 @@ public class FragmentLogin extends Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        fbLoginButton.setFragment(this);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode,resultCode,data);
     }
 
     @Override
