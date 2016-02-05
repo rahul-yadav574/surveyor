@@ -152,7 +152,7 @@
                 android:gravity="center"
                 android:drawableLeft="@drawable/com_facebook_button_icon"
                 android:drawableStart="@drawable/com_facebook_button_icon"
-                android:id="@+id/facebook_LoginButton"
+                android:id="@+id/facebookLoginButton"
                 android:layout_margin="20dp"
                 android:layout_width="match_parent"
                 android:textColor="@android:color/white"

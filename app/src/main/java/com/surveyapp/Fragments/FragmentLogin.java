@@ -30,6 +30,7 @@ import com.facebook.login.widget.LoginButton;
 import com.surveyapp.Activities.ActivityLoginSignUp;
 import com.surveyapp.Activities.LandingActivity;
 import com.surveyapp.R;
+import com.surveyapp.Utilities.FacebookUtility;
 import com.surveyapp.Utils;
 
 import java.util.Arrays;
@@ -48,8 +49,9 @@ public class FragmentLogin extends Fragment {
     private Button troubleLoginButton;
     private Button googleLoginButton;
     private Button fbLoginButton;
+    FacebookUtility facebookUtility ;
 
-    private CallbackManager callbackManager;
+
 
 
     public FragmentLogin() {
@@ -61,6 +63,7 @@ public class FragmentLogin extends Fragment {
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         getActivity().setTitle(R.string.btn_login);
         ActivityLoginSignUp.toolbar.setVisibility(View.VISIBLE);
+        facebookUtility = new FacebookUtility(this);
         ActivityLoginSignUp.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         this.setHasOptionsMenu(true);
     }
@@ -92,7 +95,7 @@ public class FragmentLogin extends Fragment {
         fbLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onFbLogin();
+                facebookUtility.onFbLogin();
             }
         });
 
@@ -102,8 +105,9 @@ public class FragmentLogin extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        facebookUtility.getCallbackManager().onActivityResult(requestCode,resultCode,data);
 
-        callbackManager.onActivityResult(requestCode,resultCode,data);
+
     }
 
     @Override
@@ -140,28 +144,7 @@ public class FragmentLogin extends Fragment {
         Toast.makeText(getActivity(), "Thank You!", Toast.LENGTH_SHORT).show();
     }
 
-    private void onFbLogin(){
-        callbackManager= CallbackManager.Factory.create();
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email"));
-        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                /* get access token and graph the login result to json object store the
-                result in shared preferences and use getJsonFromURL to connect to the server and send details to them*/
-            }
 
-            @Override
-            public void onCancel() {
-                Log.d("error","Fb Login Cancelled in FragmentLogin ");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d("error","Fb Login ERROR in FragmentLogin ");
-            }
-        });
-
-    }
 
     private class MyTextWatcher implements TextWatcher {
 
