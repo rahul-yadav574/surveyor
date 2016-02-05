@@ -8,45 +8,52 @@ import android.content.SharedPreferences;
  */
 public class SharedPrefUtil {
 
-    private static final String PREFERENCES="com.surveyapp";
-    public static final String USER_NAME="username";
-    public static final String USER_PASSWORD="userPassword";
-    public static final String USER_EMAIL="userEmail";
+    private final String PREFERENCES="com.surveyapp";
+    private final String USER_NAME="username";
+    private final String USER_PASSWORD="userPassword";
+    private final String USER_EMAIL="userEmail";
+    private final String LOGGED_IN_STATUS = "loggedInStatus";
+    private Context context;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
-    public static void setUsername(Context context,String name)
-    {
-        SharedPreferences sharedPreferences=context.getSharedPreferences(PREFERENCES,context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=sharedPreferences.edit();
-        editor.putString(USER_NAME,name);
-        editor.commit();
+
+    public SharedPrefUtil(Context context) {
+        this.context=context;
+        sharedPreferences = context.getSharedPreferences(PREFERENCES, context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        if (!sharedPreferences.contains(LOGGED_IN_STATUS)){
+            editor.putBoolean(LOGGED_IN_STATUS,false).commit();
+        }
     }
 
-    public static void setUserEmail(Context context,String email)
-    {
-        SharedPreferences sharedPreferences=context.getSharedPreferences(PREFERENCES,context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=sharedPreferences.edit();
-        editor.putString(USER_EMAIL,email);
-        editor.commit();
+    public boolean getLoggedInStatus() {
+        return sharedPreferences.getBoolean(LOGGED_IN_STATUS,false);
     }
 
-    public static void setUserPassword(Context context,String password)
-    {
-        SharedPreferences sharedPreferences=context.getSharedPreferences(PREFERENCES,context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=sharedPreferences.edit();
-        editor.putString(USER_PASSWORD,password);
-        editor.commit();
+    public void setUsername(String name) {
+        editor.putString(USER_NAME,name).commit();
     }
 
-    public static String getUsername(Context context)
-    {
-        SharedPreferences sharedPreferences=context.getSharedPreferences(PREFERENCES,context.MODE_PRIVATE);
+    public void setUserEmail(String email) {
+        editor.putString(USER_EMAIL,email).commit();
+    }
+
+    public void setUserPassword(String password) {
+        editor.putString(USER_PASSWORD,password).commit();
+    }
+
+    public String getUsername() {
         return sharedPreferences.getString(USER_NAME,null);
     }
 
-    public static String getUserPassword(Context context)
-    {
-        SharedPreferences sharedPreferences=context.getSharedPreferences(PREFERENCES,context.MODE_PRIVATE);
+    public String getUserPassword() {
         return sharedPreferences.getString(USER_PASSWORD,null);
+    }
+
+    public void clearSharedPref(){
+        editor.clear().commit();
     }
 }
 

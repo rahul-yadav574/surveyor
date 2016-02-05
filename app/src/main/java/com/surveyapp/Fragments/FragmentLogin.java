@@ -75,7 +75,7 @@ public class FragmentLogin extends Fragment {
         loginIdInputLayout = (TextInputLayout) rootView.findViewById(R.id.loginIdInputLayout);
         loginPasswordInputLayout = (TextInputLayout) rootView.findViewById(R.id.loginPasswordInputLayout);
         loginButton = (Button) rootView.findViewById(R.id.loginButton);
-        fbLoginButton = (Button) rootView.findViewById(R.id.facebookLoginButton);
+        fbLoginButton = (Button) rootView.findViewById(R.id.facebook_LoginButton);
         googleLoginButton = (Button) rootView.findViewById(R.id.googleLoginButton);
 
 
