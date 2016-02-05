@@ -126,37 +126,37 @@
                     android:background="@drawable/divider_horizontal"/>
             </RelativeLayout>
 
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/facebookLoginButton"
-                android:background="@color/colorPrimary"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:layout_marginRight="30dp"
-                android:textColor="@android:color/white"
-                android:layout_margin="20dp"
-                android:layout_marginLeft="30dp"
-                android:layout_width="match_parent"
-                android:textSize="20dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.15" />
-
-            <!--<Button xmlns:app="http://schemas.android.com/apk/res-auto"-->
-                <!--style="@style/com_facebook_button"-->
-                <!--android:text="@string/sign_in_fb"-->
-                <!--android:textStyle="bold"-->
-                <!--android:textAllCaps="true"-->
-                <!--android:paddingLeft="40dp"-->
-                <!--android:drawablePadding="-20dp"-->
+            <!--<com.facebook.login.widget.LoginButton-->
+                <!--android:id="@+id/facebookLoginButton"-->
+                <!--android:background="@color/colorPrimary"-->
+                <!--android:foreground="?android:attr/selectableItemBackground"-->
+                <!--android:clickable="true"-->
+                <!--android:layout_marginTop="20dp"-->
                 <!--android:gravity="center"-->
-                <!--android:drawableLeft="@drawable/com_facebook_button_icon"-->
-                <!--android:drawableStart="@drawable/com_facebook_button_icon"-->
-                <!--android:id="@+id/facebook_LoginButton"-->
-                <!--android:layout_margin="20dp"-->
-                <!--android:layout_width="match_parent"-->
+                <!--android:layout_marginRight="30dp"-->
                 <!--android:textColor="@android:color/white"-->
-                <!--android:layout_height="wrap_content"/>-->
+                <!--android:layout_margin="20dp"-->
+                <!--android:layout_marginLeft="30dp"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:textSize="20dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="0.15" />-->
+
+            <Button xmlns:app="http://schemas.android.com/apk/res-auto"
+                style="@style/com_facebook_button"
+                android:text="@string/sign_in_fb"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:paddingLeft="40dp"
+                android:drawablePadding="-20dp"
+                android:gravity="center"
+                android:drawableLeft="@drawable/com_facebook_button_icon"
+                android:drawableStart="@drawable/com_facebook_button_icon"
+                android:id="@+id/facebook_LoginButton"
+                android:layout_margin="20dp"
+                android:layout_width="match_parent"
+                android:textColor="@android:color/white"
+                android:layout_height="wrap_content"/>
 
             <Button xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:background="@android:color/holo_blue_dark"

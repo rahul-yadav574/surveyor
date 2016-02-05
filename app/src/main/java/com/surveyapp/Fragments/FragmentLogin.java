@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.telecom.Call;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -22,12 +23,16 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.surveyapp.Activities.ActivityLoginSignUp;
 import com.surveyapp.Activities.LandingActivity;
 import com.surveyapp.R;
 import com.surveyapp.Utils;
+
+import java.util.Arrays;
 
 /**
  * Created by Rahul Yadav on 31-01-2016.
@@ -42,25 +47,10 @@ public class FragmentLogin extends Fragment {
     private Button loginButton;
     private Button troubleLoginButton;
     private Button googleLoginButton;
-    private LoginButton fbLoginButton;
+    private Button fbLoginButton;
 
     private CallbackManager callbackManager;
-    private FacebookCallback facebookCallback = new FacebookCallback() {
-        @Override
-        public void onSuccess(Object o) {
-            /////stuff to be done
-        }
 
-        @Override
-        public void onCancel() {
-
-        }
-
-        @Override
-        public void onError(FacebookException error) {
-            Log.d("TAG","FacebookException in FragmentLogin");
-        }
-    };
 
     public FragmentLogin() {
     }
@@ -85,11 +75,9 @@ public class FragmentLogin extends Fragment {
         loginIdInputLayout = (TextInputLayout) rootView.findViewById(R.id.loginIdInputLayout);
         loginPasswordInputLayout = (TextInputLayout) rootView.findViewById(R.id.loginPasswordInputLayout);
         loginButton = (Button) rootView.findViewById(R.id.loginButton);
-        fbLoginButton = (LoginButton) rootView.findViewById(R.id.facebookLoginButton);
+        fbLoginButton = (Button) rootView.findViewById(R.id.facebookLoginButton);
         googleLoginButton = (Button) rootView.findViewById(R.id.googleLoginButton);
 
-        callbackManager = CallbackManager.Factory.create();
-        fbLoginButton.registerCallback(callbackManager,facebookCallback);
 
         loginIdInput.addTextChangedListener(new MyTextWatcher(loginIdInput));
         loginPasswordInput.addTextChangedListener(new MyTextWatcher(loginPasswordInput));
@@ -101,18 +89,20 @@ public class FragmentLogin extends Fragment {
             }
         });
 
-        return rootView;
-    }
+        fbLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onFbLogin();
+            }
+        });
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        fbLoginButton.setFragment(this);
+        return rootView;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         callbackManager.onActivityResult(requestCode,resultCode,data);
     }
 
@@ -148,6 +138,30 @@ public class FragmentLogin extends Fragment {
         startActivity(intent);
 
         Toast.makeText(getActivity(), "Thank You!", Toast.LENGTH_SHORT).show();
+    }
+
+    private void onFbLogin(){
+        callbackManager= CallbackManager.Factory.create();
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email"));
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                /* get access token and graph the login result to json object store the
+                result in shared preferences and use getJSONfromURL to connect to the server and send details to them*/
+
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d("error","Fb Login Cancelled in FragmentLogin ");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d("error","Fb Login ERROR in FragmentLogin ");
+            }
+        });
+
     }
 
     private class MyTextWatcher implements TextWatcher {
