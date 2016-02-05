@@ -147,8 +147,7 @@ public class FragmentLogin extends Fragment {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 /* get access token and graph the login result to json object store the
-                result in shared preferences and use getJSONfromURL to connect to the server and send details to them*/
-
+                result in shared preferences and use getJsonFromURL to connect to the server and send details to them*/
             }
 
             @Override
