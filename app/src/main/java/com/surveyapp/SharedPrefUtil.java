@@ -1,4 +1,4 @@
-package com.surveyapp.Utilities;
+package com.surveyapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
