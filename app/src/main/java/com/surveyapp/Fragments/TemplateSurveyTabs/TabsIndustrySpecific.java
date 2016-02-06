@@ -1,4 +1,4 @@
-package com.surveyapp.Fragments;
+package com.surveyapp.Fragments.TemplateSurveyTabs;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,12 +17,12 @@ import java.util.ArrayList;
 /**
  * Created by Rahul Yadav on 02-02-2016.
  */
-public class TabsHealthCare extends Fragment {
+public class TabsIndustrySpecific extends Fragment {
 
     private ListView templatesListView;
     private TemplateSurveyListAdapter adapter;
 
-    public TabsHealthCare() {
+    public TabsIndustrySpecific() {
     }
 
     @Override
@@ -38,7 +38,6 @@ public class TabsHealthCare extends Fragment {
         templatesListView = (ListView) rootView.findViewById(R.id.templatesListView);
         adapter = new TemplateSurveyListAdapter(new ArrayList<TemplateSurveyObject>()); //The Parameter Is the List Of The Templates
         templatesListView.setAdapter(adapter);
-
         return rootView;
     }
 }

@@ -63,4 +63,15 @@
     <string name="dialog_btn_new_survey_text">New Survey</string>
     <string name="dialog_btn_browse_templates_text">Browse Template Gallery</string>
     <string name="dialog_btn_cancel_text">Cancel</string>
+    <string name="btn_update_email">Update E-Mail</string>
+    <string name="btn_update_password">Update Password</string>
+    <string name="hint_login_id_update_input">Enter New E-mail Id</string>
+    <string name="hint_update_password_old_input">Enter Current Password</string>
+    <string name="hint_update_password_new_input">Enter New Password</string>
+    <string name="hint_update_password_confirm_input">Confirm New Password</string>
+    <string name="err_update_password_old">This Is Not Your Current Password</string>
+    <string name="err_update_password_new">New Password Can't Be Null And Not Same As Old one</string>
+    <string name="err_update_password_confirm">Should Match With New Password</string>
+    <string name="hint_user_name_update_input">Enter New User Name</string>
+    <string name="btn_update_user_name">Update User Name</string>
 </resources>

@@ -4,24 +4,21 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 
 import com.surveyapp.Adapters.ViewPagerAdapter;
-import com.surveyapp.Fragments.TabEvents;
-import com.surveyapp.Fragments.TabsCommunity;
-import com.surveyapp.Fragments.TabsCustomerFeedback;
-import com.surveyapp.Fragments.TabsDemographics;
-import com.surveyapp.Fragments.TabsEducation;
-import com.surveyapp.Fragments.TabsHealthCare;
-import com.surveyapp.Fragments.TabsHumanResources;
-import com.surveyapp.Fragments.TabsIndustrySpecific;
-import com.surveyapp.Fragments.TabsJustForFun;
-import com.surveyapp.Fragments.TabsMarketResearch;
-import com.surveyapp.Fragments.TabsMostPopular;
-import com.surveyapp.Fragments.TabsNonProfit;
-import com.surveyapp.Fragments.TabsPolitical;
+import com.surveyapp.Fragments.TemplateSurveyTabs.TabEvents;
+import com.surveyapp.Fragments.TemplateSurveyTabs.TabsCommunity;
+import com.surveyapp.Fragments.TemplateSurveyTabs.TabsCustomerFeedback;
+import com.surveyapp.Fragments.TemplateSurveyTabs.TabsDemographics;
+import com.surveyapp.Fragments.TemplateSurveyTabs.TabsEducation;
+import com.surveyapp.Fragments.TemplateSurveyTabs.TabsHealthCare;
+import com.surveyapp.Fragments.TemplateSurveyTabs.TabsHumanResources;
+import com.surveyapp.Fragments.TemplateSurveyTabs.TabsIndustrySpecific;
+import com.surveyapp.Fragments.TemplateSurveyTabs.TabsJustForFun;
+import com.surveyapp.Fragments.TemplateSurveyTabs.TabsMarketResearch;
+import com.surveyapp.Fragments.TemplateSurveyTabs.TabsMostPopular;
+import com.surveyapp.Fragments.TemplateSurveyTabs.TabsNonProfit;
+import com.surveyapp.Fragments.TemplateSurveyTabs.TabsPolitical;
 import com.surveyapp.R;
 
 public class TemplatesActivity extends AppCompatActivity {
