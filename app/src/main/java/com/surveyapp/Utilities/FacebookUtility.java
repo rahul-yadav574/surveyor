@@ -1,9 +1,14 @@
 package com.surveyapp.Utilities;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.telecom.Call;
 import android.util.Log;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -11,6 +16,10 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.surveyapp.Activities.LandingActivity;
+import com.surveyapp.Constants;
+import com.surveyapp.SharedPrefUtil;
+import com.surveyapp.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,40 +31,55 @@ import java.util.Arrays;
  */
 public class FacebookUtility {
     private CallbackManager callbackManager;
-    Fragment fragment ;
+    private Fragment fragment ;
+    private MaterialDialog progressDialog;
+    private SharedPrefUtil sharedPrefUtil;
+    private Context context;
 
-    public FacebookUtility(Fragment fragment) {
+
+    public FacebookUtility(Fragment fragment,Context context) {
+        this.context = context;
+        this.callbackManager = CallbackManager.Factory.create();
         this.fragment = fragment;
+        this.progressDialog = new MaterialDialog.Builder(context).content("Logging You In").progress(true,100).build();
+        this.sharedPrefUtil = new SharedPrefUtil(context);
     }
 
     public CallbackManager getCallbackManager() {
-        return callbackManager;
+        return this.callbackManager;
     }
 
-    public JSONObject getJsonFromLoginResult(LoginResult loginResult){
-        final JSONObject[] resultJson = new JSONObject[1];
-        GraphRequest.newMeRequest(loginResult.getAccessToken(),new GraphRequest.GraphJSONObjectCallback(){
+    private void makeGraphApiRequest(LoginResult loginResult){
+        GraphRequest graphRequest;
+        graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
             @Override
-            public void onCompleted(JSONObject jsonObject, GraphResponse response) {
-                if(response.getError()!=null){
-                    //TODO:Handle error
-                }
-                else{
-                    resultJson[0] = jsonObject ;
+            public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
 
+               /* this will check whether user exists on our website*/
+
+                try {
+                    checkInfoOnServer(jsonObject);
                 }
+                catch(JSONException e){
+                    e.printStackTrace();
+                }
+
             }
-        }).executeAsync();
-        return resultJson[0];
+        });
+
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,email,gender,birthday");
+        graphRequest.setParameters(parameters);
+        graphRequest.executeAsync();
     }
+
     public void onFbLogin(){
-        callbackManager= CallbackManager.Factory.create();
-        LoginManager.getInstance().logInWithReadPermissions(fragment, Arrays.asList("email"));
+
+        LoginManager.getInstance().logInWithReadPermissions(fragment, Arrays.asList("email", "user_photos", "public_profile"));
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                /* get access token and graph the login result to json object store the
-                result in shared preferences and use getJsonFromURL to connect to the server and send details to them*/
+                makeGraphApiRequest(loginResult);
             }
 
             @Override
@@ -65,9 +89,72 @@ public class FacebookUtility {
 
             @Override
             public void onError(FacebookException error) {
-                Log.d("error", "Fb Login ERROR in FragmentLogin ");
+                Utils.toastL(context,"Error Connecting to facebook ...try later");
             }
         });
-
     }
+
+    private void checkInfoOnServer(JSONObject jsonObject) throws JSONException{
+
+        String facebookId = jsonObject.getString("id");
+        String facebookUserName = jsonObject.getString("name");
+        String facebookUserEmail = jsonObject.getString("email");
+
+        new CheckUserExistence().execute(facebookId,facebookUserEmail,facebookUserName);
+    }
+
+    private void showDialog(){
+        if (progressDialog!=null && !progressDialog.isShowing()){
+            progressDialog.show();
+        }
+    }
+
+    private void hideDialog(){
+        if (progressDialog!=null && progressDialog.isShowing()){
+            progressDialog.cancel();
+        }
+    }
+
+
+    protected class CheckUserExistence extends AsyncTask<String,Void,String[]> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            showDialog();
+
+        }
+
+        @Override
+        protected void onPostExecute(String[] strings) {
+            super.onPostExecute(strings);
+
+            hideDialog();
+            sharedPrefUtil.createSession(strings[2], null, strings[1], Constants.TYPE_FACEBOOK_LOGIN, null);
+            Intent intent = new Intent(context, LandingActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            context.startActivity(intent);
+        }
+
+        @Override
+        protected String[] doInBackground(String... params) {
+            String completeUrl = "http://contactsyncer.com/signin.php?type=fb&name="+params[2]+"&id="+params[0]; //will be changed when web service is created!
+            completeUrl.replace(" ", "%20");
+
+            JSONObject jsonObject = Utils.getJSONFromUrl(completeUrl);
+
+
+            try{
+                int statusCode = jsonObject.getInt("status");
+
+                //Do the Stuff Here
+            }
+            catch (JSONException e){
+                e.printStackTrace();
+            }
+
+            return params;
+
+        }
+    }
+
 }

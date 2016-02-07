@@ -9,16 +9,18 @@ public class User {
     private String email;
     private String password;
     private String plan;
+    private int loginType;
 
-    public User(String name, String email, String password, String plan) {
+    public User(String name, String email, String password, String plan,int loginType) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.plan = plan;
+        this.loginType =loginType;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -47,5 +49,13 @@ public class User {
 
     public void setPlan(String plan) {
         this.plan = plan;
+    }
+
+    public int getLoginType() {
+        return this.loginType;
+    }
+
+    public void setLoginType(int loginType) {
+        this.loginType = loginType;
     }
 }

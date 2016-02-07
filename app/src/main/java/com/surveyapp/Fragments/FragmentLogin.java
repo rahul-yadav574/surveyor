@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.telecom.Call;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,21 +17,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
+
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.surveyapp.Activities.ActivityLoginSignUp;
 import com.surveyapp.Activities.LandingActivity;
 import com.surveyapp.R;
 import com.surveyapp.Utilities.FacebookUtility;
 import com.surveyapp.Utils;
-
-import java.util.Arrays;
 
 /**
  * Created by Rahul Yadav on 31-01-2016.
@@ -59,11 +49,11 @@ public class FragmentLogin extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        FacebookSdk.sdkInitialize(getActivity());
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         getActivity().setTitle(R.string.btn_login);
         ActivityLoginSignUp.toolbar.setVisibility(View.VISIBLE);
-        facebookUtility = new FacebookUtility(this);
+        facebookUtility = new FacebookUtility(this,getActivity());
         ActivityLoginSignUp.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         this.setHasOptionsMenu(true);
     }
@@ -109,10 +99,11 @@ public class FragmentLogin extends Fragment {
         return rootView;
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        facebookUtility.getCallbackManager().onActivityResult(requestCode,resultCode,data);
+        facebookUtility.getCallbackManager().onActivityResult(requestCode, resultCode, data);
 
 
     }
@@ -132,6 +123,8 @@ public class FragmentLogin extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
     private void startUserLoginRequest(){
 
@@ -209,4 +202,6 @@ public class FragmentLogin extends Fragment {
 
         return true;
     }
+
+
 }

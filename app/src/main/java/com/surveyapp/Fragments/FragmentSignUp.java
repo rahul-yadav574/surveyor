@@ -1,5 +1,6 @@
 package com.surveyapp.Fragments;
 
+import android.app.backup.SharedPreferencesBackupHelper;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import com.surveyapp.Activities.ActivityLoginSignUp;
 import com.surveyapp.Activities.LandingActivity;
+import com.surveyapp.Constants;
 import com.surveyapp.R;
 import com.surveyapp.SharedPrefUtil;
 import com.surveyapp.Utils;
@@ -46,6 +48,8 @@ public class FragmentSignUp extends Fragment {
     private TextInputLayout signUpPasswordInputLayout;
     private TextInputLayout signUpConfirmPasswordInputLayout;
 
+    private SharedPrefUtil sharedPrefUtil;
+
     private Button signUpButton;
 
     public FragmentSignUp() {
@@ -58,6 +62,8 @@ public class FragmentSignUp extends Fragment {
         ActivityLoginSignUp.toolbar.setVisibility(View.VISIBLE);
         ActivityLoginSignUp.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         this.setHasOptionsMenu(true);
+
+        sharedPrefUtil = new SharedPrefUtil(getActivity());
     }
 
     @Nullable
@@ -234,15 +240,18 @@ public class FragmentSignUp extends Fragment {
         @Override
         protected void onPostExecute(String[] s) {
             if(s!=null){
-                SharedPrefUtil.setUsername(getActivity(),s[0]);
+               /* SharedPrefUtil.setUsername(getActivity(),s[0]);
                 SharedPrefUtil.setUserEmail(getActivity(),s[1]);
                 SharedPrefUtil.setUserPassword(getActivity(),s[2]);
+                */
+                sharedPrefUtil.createSession(s[0],s[2],s[1], Constants.TYPE_SERVER_LOGIN,null);
 
                 Intent reachLandingActivity = new Intent(getActivity(), LandingActivity.class);
+                reachLandingActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(reachLandingActivity);
             }
             else{
-                Toast.makeText(getActivity(),"Username already taken",Toast.LENGTH_SHORT).show();
+                signUpUserNameInputLayout.setError("User Name Already Taken");
                 signUpUserNameInput.requestFocus();
             }
         }
@@ -260,6 +269,7 @@ public class FragmentSignUp extends Fragment {
                 jsonObject.put("username",username);
                 jsonObject.put("email",email);
                 jsonObject.put("password",password);
+
             }catch (Exception e){
                 Log.d("error","creating json in fragment sign up");
             }

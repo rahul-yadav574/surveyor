@@ -41,7 +41,7 @@
     <string name="nav_selected_id">Selected Item Id</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
-    <string name="title_activity_templates">TemplatesActivity</string>
+    <string name="title_activity_templates">Survey Templates</string>
     <string name="title_activity_edit_survey">EditSurveyActivity</string>
     <string name="title_tab_most_popular">MOST POPULAR</string>
     <string name="title_tab_community">COMMUNITY</string>
@@ -70,8 +70,9 @@
     <string name="hint_update_password_new_input">Enter New Password</string>
     <string name="hint_update_password_confirm_input">Confirm New Password</string>
     <string name="err_update_password_old">This Is Not Your Current Password</string>
-    <string name="err_update_password_new">New Password Can't Be Null And Not Same As Old one</string>
+    <string name="err_update_password_new">New Password Can\'t Be Null And Not Same As Old one</string>
     <string name="err_update_password_confirm">Should Match With New Password</string>
     <string name="hint_user_name_update_input">Enter New User Name</string>
     <string name="btn_update_user_name">Update User Name</string>
+    <string name="btn_log_out">Log Out</string>
 </resources>

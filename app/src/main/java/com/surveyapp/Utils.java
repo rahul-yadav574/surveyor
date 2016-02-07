@@ -6,6 +6,8 @@ import android.net.NetworkInfo;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,6 +75,14 @@ public class Utils {
 
     public static boolean isValidEmail(String email) {
         return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    public static void toastS(Context context , String message){
+        Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
+    }
+
+    public static void toastL(Context context , String message){
+        Toast.makeText(context,message,Toast.LENGTH_LONG).show();
     }
 
 

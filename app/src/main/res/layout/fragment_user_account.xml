@@ -3,4 +3,37 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ListView
+                android:dividerHeight="1dp"
+                android:divider="@drawable/divider_horizontal"
+                android:id="@+id/userCredentialsListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ListView
+                android:dividerHeight="1dp"
+                android:divider="@drawable/divider_horizontal"
+                android:id="@+id/newResponsesListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:layout_marginRight="100dp"
+                android:background="@color/colorPrimary"
+                android:text="@string/btn_log_out"
+                android:layout_marginLeft="100dp"/>
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
