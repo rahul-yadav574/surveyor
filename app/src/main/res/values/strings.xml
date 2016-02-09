@@ -4,9 +4,6 @@
     
     <string name="facebook_app_id">924972244235994</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-
     <string name="hint_login_id_input">Enter E-mail Id</string>
     <string name="hint_login_password_input">Enter Password</string>
     <string name="btn_login">Log In</string>
@@ -75,4 +72,9 @@
     <string name="hint_user_name_update_input">Enter New User Name</string>
     <string name="btn_update_user_name">Update User Name</string>
     <string name="btn_log_out">Log Out</string>
+
+    <string-array name="user_account_credential_tile_1"><item>Username</item><item>Email</item><item>Password</item><item>Plan</item><item>Language</item></string-array>
+    <string-array name="user_account_credential_tile_2"><item>New Response Email Alerts</item></string-array>
+
+
 </resources>
