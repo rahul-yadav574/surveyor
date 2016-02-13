@@ -8,6 +8,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,16 +20,25 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 import com.surveyapp.Activities.ActivityLoginSignUp;
 import com.surveyapp.Activities.LandingActivity;
 import com.surveyapp.R;
 import com.surveyapp.Utilities.FacebookUtility;
+import com.surveyapp.Utilities.GoogleUtility;
 import com.surveyapp.Utils;
 
 /**
  * Created by Rahul Yadav on 31-01-2016.
  */
-public class FragmentLogin extends Fragment {
+public class FragmentLogin extends Fragment  {
 
 
     private AutoCompleteTextView loginIdInput;
@@ -40,9 +50,8 @@ public class FragmentLogin extends Fragment {
     private Button googleLoginButton;
     private Button fbLoginButton;
     FacebookUtility facebookUtility ;
-
-
-
+    private GoogleUtility googleUtility;
+    private final int RC_SIGN_IN = 9001;
 
     public FragmentLogin() {
     }
@@ -54,6 +63,7 @@ public class FragmentLogin extends Fragment {
         getActivity().setTitle(R.string.btn_login);
         ActivityLoginSignUp.toolbar.setVisibility(View.VISIBLE);
         facebookUtility = new FacebookUtility(this,getActivity());
+        googleUtility = new GoogleUtility(getActivity(),getActivity());
         ActivityLoginSignUp.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         this.setHasOptionsMenu(true);
     }
@@ -92,6 +102,7 @@ public class FragmentLogin extends Fragment {
         googleLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startGoogleLogin();
 
             }
         });
@@ -104,6 +115,12 @@ public class FragmentLogin extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         facebookUtility.getCallbackManager().onActivityResult(requestCode, resultCode, data);
+
+
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
 
 
     }
@@ -203,5 +220,62 @@ public class FragmentLogin extends Fragment {
         return true;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleUtility.getGoogleApiClient());
+        if (opr.isDone()) {
+            /* If the user's cached credentials are valid, the OptionalPendingResult will be "done"
+            and the GoogleSignInResult will be available instantly.*/
+            GoogleSignInResult result = opr.get();
+            handleSignInResult(result);
+        } else {
+            /*If the user has not previously signed in on this device or the sign-in has expired,
+            this asynchronous branch will attempt to sign in the user silently.  Cross-device
+            single sign-on will occur in this branch.*/
+            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                @Override
+                public void onResult(GoogleSignInResult googleSignInResult) {
+                    handleSignInResult(googleSignInResult);
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        stopAutoManage();        //otherwise when we start the activity again it will give error that g+ api client already built
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+
+
+    public void startGoogleLogin(){
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleUtility.getGoogleApiClient());
+        startActivityForResult(signInIntent, RC_SIGN_IN);           //As we cant call the startActivityForResult from Non Ui Classes So We Need A Activity Referene
+    }
+
+
+    public void handleSignInResult(GoogleSignInResult result){
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            googleUtility.checkUserOnServer(result.getSignInAccount());
+
+           // GoogleUtility(getActivity()).CheckUserExistence().execute(acct.getDisplayName(), acct.getEmail());
+
+        } else {
+            // Signed out, show unauthenticated UI.
+        }
+    }
+
+    public void stopAutoManage(){
+        googleUtility.getGoogleApiClient().stopAutoManage(getActivity());
+    }
 
 }

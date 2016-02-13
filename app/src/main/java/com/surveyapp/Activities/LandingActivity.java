@@ -12,9 +12,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
+import com.surveyapp.CustomObjects.User;
 import com.surveyapp.Fragments.FragmentCreateNewSurvey;
 import com.surveyapp.R;
+import com.surveyapp.SharedPrefUtil;
 
 public class LandingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -25,6 +29,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     private ActionBarDrawerToggle drawerToggle;
     private DrawerLayout drawerLayout;
     private int drawerItemSelected;
+    private SharedPrefUtil sharedPrefUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,8 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        sharedPrefUtil = new SharedPrefUtil(LandingActivity.this);
 
         appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
         navigationDrawer = (NavigationView) findViewById(R.id.navigationView);
@@ -43,6 +50,8 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
 
         drawerLayout.setDrawerListener(drawerToggle);
         navigationDrawer.setNavigationItemSelectedListener(this);
+
+        setUserDetailsInDrwaer();
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -104,6 +113,20 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         drawerToggle.syncState();
+    }
+
+    private void setUserDetailsInDrwaer(){
+        View headerView = navigationDrawer.getHeaderView(0);
+
+        TextView userName = (TextView) headerView.findViewById(R.id.navHeaderUserName);
+        TextView userEmail = (TextView) headerView.findViewById(R.id.navHeaderUserEmail);
+        TextView userPlan = (TextView) headerView.findViewById(R.id.navHeaderUserPlan);
+
+        User user = sharedPrefUtil.getUserInfo();
+
+        userName.setText(user.getName());
+        userEmail.setText(user.getEmail());
+        userPlan.setText(user.getPlan());
     }
 
 

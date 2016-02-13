@@ -79,7 +79,9 @@ public class FragmentUpdatePassword extends Fragment {
             return;
         }
 
-        //Do The Stuff Here
+        String newPassword = newPasswordInput.getText().toString();
+
+       /* Do The Stuff Here*/
 
     }
 

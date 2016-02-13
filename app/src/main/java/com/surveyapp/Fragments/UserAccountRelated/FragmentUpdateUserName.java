@@ -10,6 +10,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
 import com.surveyapp.R;
+import com.surveyapp.SharedPrefUtil;
+import com.surveyapp.Utils;
 
 /**
  * Created by Rahul Yadav on 06-02-2016.
@@ -18,6 +20,7 @@ public class FragmentUpdateUserName extends Fragment {
 
     private AutoCompleteTextView newUsernameInput;
     private Button updateUserNameButton;
+    private SharedPrefUtil sharedPrefUtil;
 
 
     public FragmentUpdateUserName() {
@@ -26,7 +29,9 @@ public class FragmentUpdateUserName extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+        sharedPrefUtil = new SharedPrefUtil(getActivity());
     }
 
     @Nullable
@@ -50,7 +55,19 @@ public class FragmentUpdateUserName extends Fragment {
 
     private void startUpdateUserNameProcess(){
 
-        /*Do the Stuff here*/
+        String newUserName = newUsernameInput.getText().toString();
+
+        if (newUserName.length()==0){
+            if (newUserName.matches(sharedPrefUtil.getUserInfo().getName())){
+                Utils.toastS(getActivity(),"New Name Should Be Different");
+                return;
+            }
+            Utils.toastS(getActivity(),"Name Is Not Valid");
+            return;
+        }
+
+
+         /*Do the Stuff here*/
 
     }
 

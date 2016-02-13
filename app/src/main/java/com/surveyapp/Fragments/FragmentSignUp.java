@@ -240,10 +240,6 @@ public class FragmentSignUp extends Fragment {
         @Override
         protected void onPostExecute(String[] s) {
             if(s!=null){
-               /* SharedPrefUtil.setUsername(getActivity(),s[0]);
-                SharedPrefUtil.setUserEmail(getActivity(),s[1]);
-                SharedPrefUtil.setUserPassword(getActivity(),s[2]);
-                */
                 sharedPrefUtil.createSession(s[0],s[2],s[1], Constants.TYPE_SERVER_LOGIN,null);
 
                 Intent reachLandingActivity = new Intent(getActivity(), LandingActivity.class);
@@ -276,9 +272,15 @@ public class FragmentSignUp extends Fragment {
 
             jsonObject=Utils.postJSONObject(completeUrl,jsonObject);
 
+
+
+
             try{
 
                 int status = jsonObject.getInt("status");
+
+                boolean isPosted = jsonObject.getInt("isSuccess")==1;
+
                 if(status==800)
                 {
                     return params;

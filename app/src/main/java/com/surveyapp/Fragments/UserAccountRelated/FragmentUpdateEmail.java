@@ -40,12 +40,17 @@ public class FragmentUpdateEmail extends Fragment {
         updateEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Stuff To be Done Here
+                startUpdateEmailProcess();
             }
         });
 
-
-
         return rootView;
+    }
+
+    private void startUpdateEmailProcess(){
+
+        String newEmail = newEmailInput.getText().toString();
+
+
     }
 }

@@ -13,8 +13,12 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.surveyapp.Activities.TemplatesActivity;
+import com.surveyapp.Adapters.TemplateSurveyListAdapter;
+import com.surveyapp.CustomObjects.TemplateSurveyObject;
 import com.surveyapp.R;
 import com.surveyapp.Utils;
+
+import java.util.ArrayList;
 
 /**
  * Created by Rahul yadav on 31-01-2016.
@@ -41,7 +45,7 @@ public class FragmentCreateNewSurvey extends Fragment {
         createNewSurveyButton = (Button) rootView.findViewById(R.id.createNewSurveyButton);
 
         dialog = new MaterialDialog.Builder(getActivity())
-                .customView(getDialogView(),false)
+                .customView(getDialogView(), false)
                 .build();
 
         createNewSurveyButton.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +66,8 @@ public class FragmentCreateNewSurvey extends Fragment {
 
     private View getDialogView(){
 
+        //layout of this dialog defined in xml
+
         View dialogView  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_create_survey,new LinearLayout(getActivity()),false);
 
         Button createNewSurvey = (Button) dialogView.findViewById(R.id.dialogCreateNewSurveyButton);
@@ -71,6 +77,10 @@ public class FragmentCreateNewSurvey extends Fragment {
         createNewSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (dialog!=null && dialog.isShowing()){
+                    dialog.cancel();
+                }
+
                 Toast.makeText(getActivity(),"new Survey",Toast.LENGTH_LONG).show();
             }
         });
@@ -78,6 +88,9 @@ public class FragmentCreateNewSurvey extends Fragment {
         createNewFromTemplate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (dialog!=null && dialog.isShowing()){
+                    dialog.cancel();
+                }
                 startTemplateActivity();
             }
         });

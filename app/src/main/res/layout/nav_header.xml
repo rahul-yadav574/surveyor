@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="180dp"
+    android:layout_height="150dp"
     android:background="@color/colorPrimary">
 
     <ImageView
@@ -23,7 +23,7 @@
         android:layout_centerInParent="true">
 
         <TextView
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:id="@+id/navHeaderUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,13 +31,13 @@
             android:textColor="@android:color/white"
             android:textStyle="bold"/>
         <TextView
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:id="@+id/navHeaderUserEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="userEmail" />
         <TextView
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:id="@+id/navHeaderUserPlan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

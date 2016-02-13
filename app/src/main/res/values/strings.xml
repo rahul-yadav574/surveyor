@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">surveyapp</string>
-    <string name="title_activity_landing">LandingActivity</string>
+    <string name="title_activity_landing">Home</string>
     
-    <string name="facebook_app_id">924972244235994</string>
-
+    <string name="facebook_app_id">1507646296208673</string>
+    <string name="google_client_id">440907172906-saftu63k8d532c9ldn9ftajr255qmjjo.apps.googleusercontent.com</string>
+    <string name="google_api_key">AIzaSyD6iYlpXvrdDTg2a5s9jn0E0O7VwPxqf_g</string>
     <string name="hint_login_id_input">Enter E-mail Id</string>
     <string name="hint_login_password_input">Enter Password</string>
     <string name="btn_login">Log In</string>

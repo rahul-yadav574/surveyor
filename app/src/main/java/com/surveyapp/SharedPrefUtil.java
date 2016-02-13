@@ -54,4 +54,9 @@ public class SharedPrefUtil {
                 ,sharedPreferences.getInt(USER_LOGIN_TYPE,0));
     }
 
+    public void clearUserSession(){
+        editor.clear().commit();
+
+    }
+
 }

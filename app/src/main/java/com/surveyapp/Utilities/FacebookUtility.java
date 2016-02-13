@@ -55,6 +55,7 @@ public class FacebookUtility {
             @Override
             public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
 
+
                /* this will check whether user exists on our website*/
 
                 try {
@@ -137,8 +138,10 @@ public class FacebookUtility {
 
         @Override
         protected String[] doInBackground(String... params) {
-            String completeUrl = "http://contactsyncer.com/signin.php?type=fb&name="+params[2]+"&id="+params[0]; //will be changed when web service is created!
-            completeUrl.replace(" ", "%20");
+            String completeUrl = "http://contactsyncer.com/signin.php?type=fb&name="+params[2]+"&fbID="+params[0]; //will be changed when web service is created!
+            completeUrl = completeUrl.replaceAll(" ", "%20");
+
+            //Log.d("completeFbCheckUrl",completeUrl);
 
             JSONObject jsonObject = Utils.getJSONFromUrl(completeUrl);
 
@@ -147,6 +150,7 @@ public class FacebookUtility {
                 int statusCode = jsonObject.getInt("status");
 
                 //Do the Stuff Here
+
             }
             catch (JSONException e){
                 e.printStackTrace();
