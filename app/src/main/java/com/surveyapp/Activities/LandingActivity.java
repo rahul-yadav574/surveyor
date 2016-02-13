@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.PersistableBundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,8 +18,10 @@ import android.widget.TextView;
 
 import com.surveyapp.CustomObjects.User;
 import com.surveyapp.Fragments.FragmentCreateNewSurvey;
+import com.surveyapp.Fragments.UserAccountRelated.FragmentUserAccountShow;
 import com.surveyapp.R;
 import com.surveyapp.SharedPrefUtil;
+import com.surveyapp.Utils;
 
 public class LandingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -36,10 +39,13 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
 
+
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         sharedPrefUtil = new SharedPrefUtil(LandingActivity.this);
+        Utils.toastS(LandingActivity.this, ""+sharedPrefUtil.getUserInfo().getId());
 
         appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
         navigationDrawer = (NavigationView) findViewById(R.id.navigationView);
@@ -51,7 +57,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         drawerLayout.setDrawerListener(drawerToggle);
         navigationDrawer.setNavigationItemSelectedListener(this);
 
-        setUserDetailsInDrwaer();
+        this.setUserDetailsInDrawer();
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -115,8 +121,15 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         drawerToggle.syncState();
     }
 
-    private void setUserDetailsInDrwaer(){
+    private void setUserDetailsInDrawer(){
         View headerView = navigationDrawer.getHeaderView(0);
+
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onNavigationHeaderClicked();
+            }
+        });
 
         TextView userName = (TextView) headerView.findViewById(R.id.navHeaderUserName);
         TextView userEmail = (TextView) headerView.findViewById(R.id.navHeaderUserEmail);
@@ -129,5 +142,13 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         userPlan.setText(user.getPlan());
     }
 
+    private void onNavigationHeaderClicked(){
 
+        drawerLayout.closeDrawer(GravityCompat.START);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container,new FragmentUserAccountShow())
+                .addToBackStack(null)
+                .commit();
+    }
 }

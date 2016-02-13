@@ -18,6 +18,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.surveyapp.Activities.LandingActivity;
 import com.surveyapp.Constants;
+import com.surveyapp.CustomObjects.User;
 import com.surveyapp.SharedPrefUtil;
 import com.surveyapp.Utils;
 
@@ -117,7 +118,7 @@ public class FacebookUtility {
     }
 
 
-    protected class CheckUserExistence extends AsyncTask<String,Void,String[]> {
+    protected class CheckUserExistence extends AsyncTask<String,Void,User> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -126,37 +127,41 @@ public class FacebookUtility {
         }
 
         @Override
-        protected void onPostExecute(String[] strings) {
-            super.onPostExecute(strings);
+        protected void onPostExecute(User user) {
+            super.onPostExecute(user);
 
             hideDialog();
-            sharedPrefUtil.createSession(strings[2], null, strings[1], Constants.TYPE_FACEBOOK_LOGIN, null);
+            sharedPrefUtil.createSession(user.getId(),user.getName(),user.getPassword(), user.getEmail(),user.getLoginType(),user.getPlan());
             Intent intent = new Intent(context, LandingActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             context.startActivity(intent);
         }
 
         @Override
-        protected String[] doInBackground(String... params) {
+        protected User doInBackground(String... params) {
             String completeUrl = "http://contactsyncer.com/signin.php?type=fb&name="+params[2]+"&fbID="+params[0]; //will be changed when web service is created!
             completeUrl = completeUrl.replaceAll(" ", "%20");
 
-            //Log.d("completeFbCheckUrl",completeUrl);
-
             JSONObject jsonObject = Utils.getJSONFromUrl(completeUrl);
 
+            User user = new User();
+
+            user.setEmail(params[1]);
+            user.setLoginType(Constants.TYPE_FACEBOOK_LOGIN);
+            user.setPassword(null);
+            user.setPlan(null);
+            user.setName(params[2]);
 
             try{
-                int statusCode = jsonObject.getInt("status");
-
-                //Do the Stuff Here
+                int userId = Integer.valueOf(jsonObject.getString("userID"));
+                user.setId(userId);
 
             }
             catch (JSONException e){
                 e.printStackTrace();
             }
 
-            return params;
+            return user;
 
         }
     }

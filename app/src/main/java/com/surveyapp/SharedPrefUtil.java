@@ -18,6 +18,7 @@ public class SharedPrefUtil {
     private final String LOGGED_IN_STATUS = "loggedInStatus";
     private final String USER_LOGIN_TYPE = "userLogintype";
     private final String USER_PLAN = "userPlan";
+    private final String USER_ID = "userId";
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private Context context;
@@ -32,8 +33,9 @@ public class SharedPrefUtil {
         }
     }
 
-    public void createSession(String userName,String password,String userEmail,int type, String plan){
+    public void createSession(int userId,String userName,String password,String userEmail,int type, String plan){
         editor.putBoolean(LOGGED_IN_STATUS,true);
+        editor.putInt(USER_ID,userId);
         editor.putString(USER_NAME,userName);
         editor.putString(USER_PASSWORD,password);
         editor.putString(USER_EMAIL, userEmail);
@@ -47,7 +49,8 @@ public class SharedPrefUtil {
     }
 
     public User getUserInfo(){
-        return new User(sharedPreferences.getString(USER_NAME,null)
+        return new User(sharedPreferences.getInt(USER_ID,0)
+                ,sharedPreferences.getString(USER_NAME,null)
                 ,sharedPreferences.getString(USER_EMAIL,null)
                 ,sharedPreferences.getString(USER_PASSWORD,null)
                 ,sharedPreferences.getString(USER_PLAN,null)

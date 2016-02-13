@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.auth.api.Auth;
@@ -16,8 +17,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.surveyapp.Activities.LandingActivity;
 import com.surveyapp.Constants;
+import com.surveyapp.CustomObjects.User;
 import com.surveyapp.R;
 import com.surveyapp.SharedPrefUtil;
 import com.surveyapp.Utils;
@@ -42,7 +46,9 @@ public class GoogleUtility implements GoogleApiClient.OnConnectionFailedListener
         this.sharedPrefUtil = new SharedPrefUtil(context);
         this.fragmentActivity = fragmentActivity;
         this.buildGoogleSignInOptions();
-        this.buildGoogleApiClient();
+
+        if (googleApiClient!=null){
+            buildGoogleApiClient();}
         this.progressDialog = new MaterialDialog.Builder(context).progress(true,100).content("Logging You In").build();
     }
 
@@ -73,15 +79,18 @@ public class GoogleUtility implements GoogleApiClient.OnConnectionFailedListener
         }
     }
 
-    public GoogleApiClient getGoogleApiClient() {
-        return this.googleApiClient;
+    public GoogleApiClient getGoogleApiClient()
+    {   if (googleApiClient==null){
+            buildGoogleApiClient();}
+
+        return googleApiClient;
     }
 
     public void checkUserOnServer(GoogleSignInAccount userAccount){
         new CheckUserExistence().execute(userAccount.getDisplayName(),userAccount.getEmail());
     }
 
-    public class CheckUserExistence extends AsyncTask<String,Void,String[]> {
+    public class CheckUserExistence extends AsyncTask<String,Void,User> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -90,26 +99,36 @@ public class GoogleUtility implements GoogleApiClient.OnConnectionFailedListener
         }
 
         @Override
-        protected void onPostExecute(String[] strings) {
-            super.onPostExecute(strings);
+        protected void onPostExecute(User user) {
+            super.onPostExecute(user);
 
             hideDialog();
-            sharedPrefUtil.createSession(strings[0], null, strings[1], Constants.TYPE_GOOGLE_LOGIN, null);
+
+            sharedPrefUtil.createSession(user.getId(), user.getName(), user.getPassword(), user.getEmail(), user.getLoginType(), user.getPlan());
             Intent intent = new Intent(context, LandingActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             context.startActivity(intent);
         }
 
         @Override
-        protected String[] doInBackground(String... params) {
+        protected User doInBackground(String... params) {
             String completeUrl = "http://contactsyncer.com/signin.php?name="+params[0]+"&email="+params[1]+"&type=google";//will be changed when web service is created!
             completeUrl = completeUrl.replaceAll(" ", "%20");
 
             JSONObject jsonObject = Utils.getJSONFromUrl(completeUrl);
 
+            User user = new User();
+
+            user.setEmail(params[1]);
+            user.setLoginType(Constants.TYPE_GOOGLE_LOGIN);
+            user.setPassword(null);
+            user.setPlan(null);
+            user.setName(params[0]);
+
 
             try{
-                int statusCode = jsonObject.getInt("status");
+                int userId = Integer.valueOf(jsonObject.getString("userID"));
+                user.setId(userId);
 
                 //Do the Stuff Here
             }
@@ -117,7 +136,7 @@ public class GoogleUtility implements GoogleApiClient.OnConnectionFailedListener
                 e.printStackTrace();
             }
 
-            return params;
+            return user;
 
         }
     }

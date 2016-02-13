@@ -240,7 +240,7 @@ public class FragmentSignUp extends Fragment {
         @Override
         protected void onPostExecute(String[] s) {
             if(s!=null){
-                sharedPrefUtil.createSession(s[0],s[2],s[1], Constants.TYPE_SERVER_LOGIN,null);
+                sharedPrefUtil.createSession(0,s[0],s[2],s[1], Constants.TYPE_SERVER_LOGIN,null);
 
                 Intent reachLandingActivity = new Intent(getActivity(), LandingActivity.class);
                 reachLandingActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);

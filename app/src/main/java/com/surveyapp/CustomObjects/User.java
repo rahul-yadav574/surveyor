@@ -10,13 +10,26 @@ public class User {
     private String password;
     private String plan;
     private int loginType;
+    private int id;
 
-    public User(String name, String email, String password, String plan,int loginType) {
+    public User() {
+    }
+
+    public User(int id,String name, String email, String password, String plan,int loginType) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.plan = plan;
         this.loginType =loginType;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

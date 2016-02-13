@@ -50,13 +50,13 @@ public class UserAccountListAdapter extends BaseAdapter {
         TextView value = (TextView) rootView.findViewById(R.id.userCredentialsValue);
 
         tile.setText(userCredentialList.get(position).getTitle());
-        tile.setText(userCredentialList.get(position).getValue());
+        value.setText(userCredentialList.get(position).getValue());
 
 
         return rootView;
     }
 
-    public class UserAccountObject {
+    public static class UserAccountObject {
         private String title;
         private String value;
 
