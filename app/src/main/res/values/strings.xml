@@ -74,6 +74,8 @@
     <string name="btn_update_user_name">Update User Name</string>
     <string name="btn_log_out">Log Out</string>
 
+    <string name="menu_btn_add_question">Add Question</string>
+
     <string-array name="user_account_credential_tile_1"><item>Username</item><item>Email</item><item>Password</item><item>Plan</item><item>Language</item></string-array>
     <string-array name="user_account_credential_tile_2"><item>New Response Email Alerts</item></string-array>
 
