@@ -6,8 +6,8 @@
             android:id="@+id/navHome"/>
         <item android:title="@string/nav_my_surveys"
             android:id="@+id/navMySurvey"/>
-        <item android:title="@string/nav_upgrade"
-            android:id="@+id/navUpgrade"/>
+       <!-- <item android:title="@string/nav_upgrade"
+            android:id="@+id/navUpgrade"/>-->
         <item android:title="@string/nav_about"
             android:id="@+id/navAbout"/>
         <item android:title="@string/nav_help"

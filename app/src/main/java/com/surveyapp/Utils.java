@@ -66,6 +66,38 @@ public class Utils {
         return jsonObject;
     }
 
+
+
+    public static String getStringFromUrl(String completeurl){
+        InputStream is = null;
+        JSONObject jsonObject=null;
+        String jsonstring="";
+        try {
+            URL url = new URL(completeurl);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setReadTimeout(5000);
+            urlConnection.setDoOutput(true);
+            urlConnection.setDoInput(true);
+
+            is = new BufferedInputStream(urlConnection.getInputStream());
+            java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+            if(s.hasNext()){
+                jsonstring= s.next();
+            }
+            urlConnection.disconnect();
+        } catch (MalformedURLException e) {
+            Log.d("error", "error in getjsonfromurl MalformedUrlexception");
+        } catch (IOException e) {
+            Log.d("error", "error in getjsonfromurl Ioexception");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return jsonstring;
+    }
+
     public static boolean isNetworkAvailable(Context context)
     {
         ConnectivityManager connectivityManager= (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -131,5 +163,49 @@ public class Utils {
         }
 
         return jsonObject1;
+    }
+
+    public static String postObject(String completeUrl,JSONObject jsonObject)
+    {
+        DataOutputStream dataOutputStream;
+        InputStream is;
+        String jsonstring1 ="";
+
+        try{
+            String jsonstring = jsonObject.toString();
+            URL url = new URL(completeUrl);
+            HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setConnectTimeout(15000);
+            httpURLConnection.setReadTimeout(15000);
+
+            dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+            dataOutputStream.write(jsonstring.getBytes());
+            //Log.d("url calling in post",""+dataOutputStream);
+
+
+            dataOutputStream.flush();
+            dataOutputStream.close();
+
+            int httpResult = httpURLConnection.getResponseCode();
+            if(httpResult==HttpURLConnection.HTTP_OK) {
+                is = new BufferedInputStream(httpURLConnection.getInputStream());
+                java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+                if (s.hasNext()) {
+                    jsonstring1 = s.next();
+                }
+            }
+
+        }catch(MalformedURLException e){
+            Log.d("error","malformedUrl in Post");
+        }catch (IOException e){
+            Log.d("error","IOException in Post");
+        }catch(Exception e){
+            Log.d("error","Exception in Post");
+        }
+
+
+        return jsonstring1;
     }
 }

@@ -3,6 +3,7 @@ package com.surveyapp.Utilities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import com.google.android.gms.common.api.Status;
 import com.surveyapp.Activities.LandingActivity;
 import com.surveyapp.Constants;
 import com.surveyapp.CustomObjects.User;
+import com.surveyapp.Fragments.FragmentLogin;
 import com.surveyapp.R;
 import com.surveyapp.SharedPrefUtil;
 import com.surveyapp.Utils;
@@ -105,6 +107,17 @@ public class GoogleUtility implements GoogleApiClient.OnConnectionFailedListener
             hideDialog();
 
             sharedPrefUtil.createSession(user.getId(), user.getName(), user.getPassword(), user.getEmail(), user.getLoginType(), user.getPlan());
+
+            if (FragmentLogin.FILL_SURVEY_LOGIN){
+                Intent result = new Intent("com.surevyapp.Surveyour.RESULT_ACTION", Uri.parse(""));
+                Activity fragmentActivity = (Activity) context;
+                fragmentActivity.setResult(Activity.RESULT_OK,result);
+                fragmentActivity.finish();
+
+                return;
+            }
+
+
             Intent intent = new Intent(context, LandingActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             context.startActivity(intent);

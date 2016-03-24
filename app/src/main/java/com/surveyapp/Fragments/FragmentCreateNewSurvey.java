@@ -45,8 +45,9 @@ public class FragmentCreateNewSurvey extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         sharedPrefUtil = new SharedPrefUtil(getActivity());
+
+        getActivity().setTitle("Home");
     }
 
     @Nullable
@@ -70,7 +71,7 @@ public class FragmentCreateNewSurvey extends Fragment {
         return rootView;
     }
 
-    private void showDialog(){
+    public void showDialog(){
         if (dialog!=null && !dialog.isShowing()){
             dialog.show();
         }
@@ -156,23 +157,42 @@ public class FragmentCreateNewSurvey extends Fragment {
 
             String userId = String.valueOf(sharedPrefUtil.getUserInfo().getId());
 
+            surveyTitle = params[0];
+
             Calendar calendar = Calendar.getInstance();
 
             int dd = calendar.get(Calendar.DATE);
             int mm = calendar.get(Calendar.MONTH);
             int yyyy = calendar.get(Calendar.YEAR);
 
-            String date = dd + "-" + mm + "-" + "-" + yyyy;
+            String date = dd + "-" + mm + "-" + yyyy;
 
-            String requestUrl = "http://contactsyncer.com/surveyinfo.php?title="+params[0]+"&userID="+userId+"&category="+"null"+"&date="+date;
+            String requestUrl = "http://contactsyncer.com/surveyinfo.php";
 
-            JSONObject response = Utils.getJSONFromUrl(requestUrl);
+            JSONObject urlParams = new JSONObject();
 
             try{
-                surveyId = response.getString("surveyID");}
+                urlParams.put("title",params[0]);
+                urlParams.put("userID",userId);
+                urlParams.put("category","education");
+                urlParams.put("date",date);}
             catch (JSONException j){
                 j.printStackTrace();
             }
+
+            final JSONObject response = Utils.postJSONObject(requestUrl,urlParams);
+
+
+            if (response!=null){
+                try{
+                    surveyId = response.getString("surveyID");
+                }
+                catch(JSONException j){
+                    j.printStackTrace();
+                }
+            }
+
+            //String requestUrl = "http://contactsyncer.com/surveyinfo.php?title="+params[0]+"&userID="+userId+"&category=null"+"&date="+date;
 
 
             return null;
@@ -184,10 +204,11 @@ public class FragmentCreateNewSurvey extends Fragment {
 
             dialog.cancel();
 
-            if (surveyId!=null){
+          if (surveyId!=null){
                 Bundle extraBundle = new Bundle();
                 extraBundle.putString("surveyTitle",surveyTitle);
                 extraBundle.putString("surveyId",surveyId);
+                extraBundle.putBoolean("isNewSurvey",true);
 
                 Intent startNewSurveyEditing = new Intent(getActivity(), EditSurveyActivity.class);
                 startNewSurveyEditing.putExtras(extraBundle);

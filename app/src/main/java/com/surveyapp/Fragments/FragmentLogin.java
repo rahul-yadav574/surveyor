@@ -30,6 +30,7 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.surveyapp.Activities.ActivityLoginSignUp;
 import com.surveyapp.Activities.LandingActivity;
+import com.surveyapp.Constants;
 import com.surveyapp.R;
 import com.surveyapp.Utilities.FacebookUtility;
 import com.surveyapp.Utilities.GoogleUtility;
@@ -52,6 +53,7 @@ public class FragmentLogin extends Fragment  {
     FacebookUtility facebookUtility ;
     private GoogleUtility googleUtility;
     private final int RC_SIGN_IN = 9001;
+    public static boolean  FILL_SURVEY_LOGIN;
 
     public FragmentLogin() {
     }
@@ -66,6 +68,13 @@ public class FragmentLogin extends Fragment  {
         googleUtility = new GoogleUtility(getActivity(),getActivity());
         ActivityLoginSignUp.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         this.setHasOptionsMenu(true);
+
+        FILL_SURVEY_LOGIN = false;
+
+        String action = getActivity().getIntent().getAction();
+        if(action!=null && action.equals(Constants.LOGIN_ACTION_FOR_FILL_SURVEY)){
+            FILL_SURVEY_LOGIN = true;
+        }
     }
 
     @Nullable
@@ -73,7 +82,7 @@ public class FragmentLogin extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_login,container,false);
 
-        loginIdInput = (AutoCompleteTextView)rootView.findViewById(R.id.loginId);
+        loginIdInput = (AutoCompleteTextView) rootView.findViewById(R.id.loginId);
         loginPasswordInput = (AutoCompleteTextView)  rootView.findViewById(R.id.loginPassword);
         loginIdInputLayout = (TextInputLayout) rootView.findViewById(R.id.loginIdInputLayout);
         loginPasswordInputLayout = (TextInputLayout) rootView.findViewById(R.id.loginPasswordInputLayout);

@@ -4,8 +4,8 @@
     tools:context="com.surveyapp.Activities.EditSurveyActivity">
 
     <item
-        android:id="@+id/addQuestionToNewSurvey"
-        android:title="@string/menu_btn_add_question"
-        android:icon="@android:drawable/ic_input_add"
-        android:showAsAction="always"/>
+        android:id="@+id/submitSurvey"
+        android:title="@string/menu_btn_submit_survey"
+
+        app:showAsAction="always"/>
 </menu>
