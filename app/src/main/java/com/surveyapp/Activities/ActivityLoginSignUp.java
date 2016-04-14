@@ -2,10 +2,12 @@ package com.surveyapp.Activities;
 
 import android.content.Intent;
 import android.hardware.fingerprint.FingerprintManager;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import com.facebook.login.LoginFragment;
 import com.surveyapp.Constants;
 import com.surveyapp.Fragments.LauncherSplash;
 import com.surveyapp.R;
@@ -22,10 +24,6 @@ public class ActivityLoginSignUp extends AppCompatActivity {
         setContentView(R.layout.activity_login_sign_up);
 
         sharedPrefUtil = new SharedPrefUtil(ActivityLoginSignUp.this);
-
-        if (getIntent().getAction()!=null && getIntent().getAction().equals(Constants.LOGIN_ACTION_FOR_FILL_SURVEY)){
-
-        }
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);

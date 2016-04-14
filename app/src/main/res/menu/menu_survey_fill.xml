@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.surveyapp.Activities.SurveyFillActivity">
 
-    <item android:id="@+id/submitFilledSurvey" android:title="@string/menu_btn_submit_survey"
-        android:orderInCategory="100" app:showAsAction="always" />
+
+    <!--<item android:id="@+id/submitFilledSurvey" android:title="@string/menu_btn_submit_survey"
+        android:orderInCategory="100" app:showAsAction="always" />-->
 </menu>

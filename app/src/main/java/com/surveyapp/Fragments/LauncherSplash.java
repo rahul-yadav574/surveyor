@@ -19,7 +19,7 @@ import com.surveyapp.R;
 public class LauncherSplash extends Fragment {
 
     private Button startLoginFragment;
-    private Button startSignUpFragment;
+   // private Button startSignUpFragment;
 
     public LauncherSplash() {
     }
@@ -37,7 +37,7 @@ public class LauncherSplash extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_launcher,container,false);
 
         startLoginFragment = (Button) rootView.findViewById(R.id.startLoginFragment);
-        startSignUpFragment = (Button) rootView.findViewById(R.id.startSignUpFragment);
+       // startSignUpFragment = (Button) rootView.findViewById(R.id.startSignUpFragment);
 
         startLoginFragment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,12 +46,12 @@ public class LauncherSplash extends Fragment {
             }
         });
 
-        startSignUpFragment.setOnClickListener(new View.OnClickListener() {
+      /*  startSignUpFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startFragmentProcess(new FragmentSignUp());
             }
-        });
+        });*/
 
         return rootView;
     }

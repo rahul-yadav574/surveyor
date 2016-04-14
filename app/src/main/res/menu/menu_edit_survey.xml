@@ -8,4 +8,8 @@
         android:title="@string/menu_btn_submit_survey"
 
         app:showAsAction="always"/>
+
+    <item android:id="@+id/showImageOfQuestion" android:title="@string/show_image"
+        android:icon="@android:drawable/ic_menu_send" app:showAsAction="ifRoom"
+        android:orderInCategory="200"/>
 </menu>

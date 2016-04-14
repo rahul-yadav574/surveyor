@@ -2,7 +2,14 @@ package com.surveyapp;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
+
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.io.File;
 
@@ -10,6 +17,8 @@ import java.io.File;
  * Created by Rahul Yadav on 13-02-2016.
  */
 public class AppContext extends Application{
+
+    public static final ImageLoader imageLoader = ImageLoader.getInstance();
 
     @Override
     public void onCreate() {
@@ -49,5 +58,40 @@ public class AppContext extends Application{
         }
 
         return dir.delete();
+    }
+
+    public void initImageLoader(Context context){
+
+        File cacheDir;
+        ImageLoaderConfiguration config;
+        DisplayImageOptions options;
+
+
+        imageLoader.init(ImageLoaderConfiguration.createDefault(context));
+
+        if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED)){
+            cacheDir = new File(android.os.Environment.getExternalStorageDirectory(),"JunkFolder");}
+        else{
+            cacheDir=context.getCacheDir();}
+        if(!cacheDir.exists()){
+            cacheDir.mkdirs();}
+
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.abc_ic_ab_back_mtrl_am_alpha)
+                .showImageOnFail(R.drawable.abc_textfield_activated_mtrl_alpha)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .build();
+
+        config = new ImageLoaderConfiguration.Builder(context)
+                .memoryCache(new WeakMemoryCache())
+                .denyCacheImageMultipleSizesInMemory()
+                .threadPoolSize(5)
+                .defaultDisplayImageOptions(options)
+                .build();
+
+        imageLoader.init(config);
     }
 }

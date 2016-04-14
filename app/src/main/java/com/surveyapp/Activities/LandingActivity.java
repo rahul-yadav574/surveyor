@@ -7,6 +7,7 @@ import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,7 +19,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.surveyapp.Constants;
 import com.surveyapp.CustomObjects.User;
 import com.surveyapp.Fragments.FragmentCreateNewSurvey;
 import com.surveyapp.Fragments.FragmentMySurvey;
@@ -86,6 +89,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, new FragmentCreateNewSurvey())
+
                         .commit();
                 break;
             case R.id.navAbout:
@@ -106,10 +110,18 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
                         .show();
                 break;
             case R.id.navMySurvey:
+
                 drawerLayout.closeDrawer(GravityCompat.START);
+                Fragment fragment = getSupportFragmentManager().findFragmentByTag(Constants.TAG_FRAGMENT_MY_SURVEY);
+                if (fragment!=null && fragment.isVisible()){
+                    return;
+
+                }
+
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_container,new FragmentMySurvey())
+                        .replace(R.id.fragment_container,new FragmentMySurvey(),Constants.TAG_FRAGMENT_MY_SURVEY)
+                        .addToBackStack(null)
                         .commit();
                 break;
            /* case R.id.navUpgrade:
@@ -174,7 +186,7 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
         drawerLayout.closeDrawer(GravityCompat.START);
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container,new FragmentUserAccountShow())
+                .replace(R.id.fragment_container, new FragmentUserAccountShow(), Constants.TAG_FRAGMENT_USER_ACCOUNT)
                 .addToBackStack(null)
                 .commit();
     }
@@ -228,5 +240,20 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
                     })
                     .show();
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(Constants.TAG_FRAGMENT_USER_ACCOUNT);
+
+        if (fragment!=null && fragment.isVisible()){
+            setTitle("Home");
+        }
+
+        super.onBackPressed();
+
+
     }
 }

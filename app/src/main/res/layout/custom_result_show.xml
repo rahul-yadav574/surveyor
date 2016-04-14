@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:padding="5dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_alignBottom="@id/selectChoiceRadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="200dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:textColor="@android:color/black"
+        android:text="jhadsfhv"
+
+        android:id="@+id/choiceStatementResult"/>
+
+    <!--<ProgressBar
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/choicesResponsesCount"
+        android:layout_toLeftOf="@id/choicesResponsesCount"
+        android:layout_toRightOf="@+id/choiceStatementResult"
+        android:layout_marginTop="30dp"
+        android:progress="50"
+        android:progressDrawable="@drawable/progressbar_design" />-->
+
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:text="hsadgk"
+        android:textColor="@android:color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/choicesResponsesCount"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/choiceStatementFilled"
+        android:layout_alignBottom="@id/choiceStatementFilled"/>
+
+
+
+
+</RelativeLayout>

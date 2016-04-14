@@ -42,12 +42,12 @@ import com.surveyapp.Utils;
 public class FragmentLogin extends Fragment  {
 
 
-    private AutoCompleteTextView loginIdInput;
-    private AutoCompleteTextView loginPasswordInput;
-    private TextInputLayout loginIdInputLayout;
-    private TextInputLayout loginPasswordInputLayout;
-    private Button loginButton;
-    private Button troubleLoginButton;
+   // private AutoCompleteTextView loginIdInput;
+   // private AutoCompleteTextView loginPasswordInput;
+   // private TextInputLayout loginIdInputLayout;
+   // private TextInputLayout loginPasswordInputLayout;
+   // private Button loginButton;
+  //  private Button troubleLoginButton;
     private Button googleLoginButton;
     private Button fbLoginButton;
     FacebookUtility facebookUtility ;
@@ -60,6 +60,7 @@ public class FragmentLogin extends Fragment  {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         FacebookSdk.sdkInitialize(getActivity());
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.btn_login);
@@ -82,16 +83,16 @@ public class FragmentLogin extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_login,container,false);
 
-        loginIdInput = (AutoCompleteTextView) rootView.findViewById(R.id.loginId);
+    /*    loginIdInput = (AutoCompleteTextView) rootView.findViewById(R.id.loginId);
         loginPasswordInput = (AutoCompleteTextView)  rootView.findViewById(R.id.loginPassword);
         loginIdInputLayout = (TextInputLayout) rootView.findViewById(R.id.loginIdInputLayout);
         loginPasswordInputLayout = (TextInputLayout) rootView.findViewById(R.id.loginPasswordInputLayout);
-        loginButton = (Button) rootView.findViewById(R.id.loginButton);
+        loginButton = (Button) rootView.findViewById(R.id.loginButton);*/
         fbLoginButton = (Button) rootView.findViewById(R.id.facebookLoginButton);
         googleLoginButton = (Button) rootView.findViewById(R.id.googleLoginButton);
 
 
-        loginIdInput.addTextChangedListener(new MyTextWatcher(loginIdInput));
+       /* loginIdInput.addTextChangedListener(new MyTextWatcher(loginIdInput));
         loginPasswordInput.addTextChangedListener(new MyTextWatcher(loginPasswordInput));
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +100,7 @@ public class FragmentLogin extends Fragment  {
             public void onClick(View v) {
                 startUserLoginRequest();
             }
-        });
+        });*/
 
         fbLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,7 +153,7 @@ public class FragmentLogin extends Fragment  {
 
 
 
-    private void startUserLoginRequest(){
+ /*   private void startUserLoginRequest(){
 
         if (!validateEmail(loginIdInput.getText().toString())) {
             return;
@@ -168,11 +169,11 @@ public class FragmentLogin extends Fragment  {
         startActivity(intent);
 
         Toast.makeText(getActivity(), "Thank You!", Toast.LENGTH_SHORT).show();
-    }
+    }*/
 
 
 
-    private class MyTextWatcher implements TextWatcher {
+   /* private class MyTextWatcher implements TextWatcher {
 
         private View view;
 
@@ -196,7 +197,7 @@ public class FragmentLogin extends Fragment  {
                     break;
             }
         }
-    }
+    }*/
 
     private void requestFocus(View view) {
         if (view.requestFocus()) {
@@ -204,7 +205,7 @@ public class FragmentLogin extends Fragment  {
         }
     }
 
-    private boolean validateEmail(String email) {
+  /*  private boolean validateEmail(String email) {
 
         if (email.isEmpty() || !Utils.isValidEmail(email)) {
             loginIdInputLayout.setError(getString(R.string.err_email_input));
@@ -215,9 +216,9 @@ public class FragmentLogin extends Fragment  {
         }
 
         return true;
-    }
+    }*/
 
-    private boolean validatePassword(String password) {
+   /* private boolean validatePassword(String password) {
         if (password.trim().isEmpty()) {
             loginPasswordInputLayout.setError(getString(R.string.err_password_input));
             requestFocus(loginPasswordInput);
@@ -228,7 +229,7 @@ public class FragmentLogin extends Fragment  {
 
         return true;
     }
-
+*/
     @Override
     public void onStart() {
         super.onStart();
@@ -273,13 +274,9 @@ public class FragmentLogin extends Fragment  {
 
     public void handleSignInResult(GoogleSignInResult result){
         if (result.isSuccess()) {
-            // Signed in successfully, show authenticated UI.
             googleUtility.checkUserOnServer(result.getSignInAccount());
 
            // GoogleUtility(getActivity()).CheckUserExistence().execute(acct.getDisplayName(), acct.getEmail());
-
-        } else {
-            // Signed out, show unauthenticated UI.
         }
     }
 

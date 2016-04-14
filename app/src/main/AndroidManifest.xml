@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.surveyapp" >
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.surveyapp" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
+        android:fullBackupOnly="true"
         android:name=".AppContext"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/MaterialTheme" >
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+
 
         <activity
             android:name=".Activities.ActivityLoginSignUp"
             android:label="@string/title_activity_activity_login_sign_up" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Activities.LandingActivity"
             android:label="@string/title_activity_landing" >
         </activity>
+
         <activity
             android:name=".Activities.TemplatesActivity"
             android:label="@string/title_activity_templates" >
@@ -34,28 +38,33 @@
         <activity
             android:name=".Activities.EditSurveyActivity"
             android:label="@string/title_activity_edit_survey" >
-
         </activity>
+
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
         <activity
             android:name=".Activities.SurveyFillActivity"
             android:label="@string/title_activity_survey_fill" >
 
             <intent-filter android:label="@string/app_name" >
-                <action android:name="android.intent.action.VIEW" />
 
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
                     android:host="participateme.com"
                     android:scheme="http" />
-            </intent-filter>
 
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activities.ShowResultsActivity"
+            android:label="@string/title_activity_show_results" >
         </activity>
     </application>
 

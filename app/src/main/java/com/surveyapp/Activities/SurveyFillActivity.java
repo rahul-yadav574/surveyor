@@ -1,7 +1,7 @@
 package com.surveyapp.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,17 +9,23 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.surveyapp.Adapters.FilledChoicesAdapter;
+import com.surveyapp.AppContext;
 import com.surveyapp.Constants;
 import com.surveyapp.CustomObjects.FilledChoiceQuestion;
 import com.surveyapp.R;
@@ -30,9 +36,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SurveyFillActivity extends AppCompatActivity {
@@ -40,19 +44,15 @@ public class SurveyFillActivity extends AppCompatActivity {
 
     private String surveyId;
     private TextView questionStatement;
-    private RecyclerView choicesRecyclerView;
     private FilledChoicesAdapter adapter;
-    private Button loadNextQuestion;
-    private Button loadPrevQuestion;
     private List<FilledChoiceQuestion> questionList;
     private int currentQuestion = 1;
-    private Toolbar toolbar;
     private TextView helperQuestionText;
     private SharedPrefUtil sharedPrefUtil;
     public  int RC_LOGIN = 574;
-
-
-
+    private MaterialDialog imageShowDialog;
+    private ImageLoader imageLoader;
+    private DisplayImageOptions options;
 
 
     @Override
@@ -61,6 +61,21 @@ public class SurveyFillActivity extends AppCompatActivity {
         setContentView(R.layout.activity_survey_fill);
 
         sharedPrefUtil = new SharedPrefUtil(SurveyFillActivity.this);
+
+        imageLoader = AppContext.imageLoader;
+
+        AppContext.getInstance().initImageLoader(SurveyFillActivity.this);  //Initialising The ImageLoader
+
+        //just a check we found on stack overflow for adapter problem we were facing...
+
+        this.options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.abc_ic_ab_back_mtrl_am_alpha)
+                .showImageOnFail(R.drawable.abc_textfield_activated_mtrl_alpha)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .build();
 
 
 
@@ -72,30 +87,30 @@ public class SurveyFillActivity extends AppCompatActivity {
             this.surveyId = data.substring(data.lastIndexOf("/")+1);
         }
 
-        if (!sharedPrefUtil.getLoggedInStatus()){
+      /*  if (!sharedPrefUtil.getLoggedInStatus()){
 
-            //User Is Not Logged In We Have To Find The UserID To Succesfully Submit the Survey
+            //User Is Not Logged In We Have To Find The UserID To Successfully Submit the Survey
 
             Intent loginUser = new Intent(SurveyFillActivity.this , ActivityLoginSignUp.class);
             loginUser.setAction(Constants.LOGIN_ACTION_FOR_FILL_SURVEY);
             startActivityForResult(loginUser, RC_LOGIN);
-        }
+        }*/
 
         questionList = new ArrayList<>();
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         setTitle("Fill Survey");
         questionStatement = (TextView) findViewById(R.id.fillQuestionStatement);
         helperQuestionText = (TextView) findViewById(R.id.questionNumberHelper);
-        choicesRecyclerView = (RecyclerView) findViewById(R.id.fillQuestionChoicesList);
+        RecyclerView choicesRecyclerView = (RecyclerView) findViewById(R.id.fillQuestionChoicesList);
         adapter = new FilledChoicesAdapter(SurveyFillActivity.this,questionList);
         choicesRecyclerView.setLayoutManager(new LinearLayoutManager(SurveyFillActivity.this));
         choicesRecyclerView.setAdapter(adapter);
-        loadNextQuestion = (Button) findViewById(R.id.nextQuestion);
-        loadPrevQuestion = (Button) findViewById(R.id.prevQuestion);
+        Button loadNextQuestion = (Button) findViewById(R.id.nextQuestion);
+        Button loadPrevQuestion = (Button) findViewById(R.id.prevQuestion);
 
         loadPrevQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,16 +131,14 @@ public class SurveyFillActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.menu_edit_survey, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         if (id==android.R.id.home){
@@ -140,11 +153,68 @@ public class SurveyFillActivity extends AppCompatActivity {
             return true;
         }
 
+        else if (id==R.id.showImageOfQuestion){
+
+            imageShowDialog = new MaterialDialog.Builder(SurveyFillActivity.this)
+                    .customView(getCustomImageShowView(),false)
+                    .build();
+
+            showImageDialog();
+            return true;
+        }
+
 
 
         return super.onOptionsItemSelected(item);
     }
 
+    private void showImageDialog(){
+
+        if (imageShowDialog!=null && !(imageShowDialog.isShowing())){
+            imageShowDialog.show();
+        }
+    }
+
+    private void hideImageDialog(){
+
+        if (imageShowDialog!=null && imageShowDialog.isShowing()){
+            imageShowDialog.hide();
+        }
+
+    }
+    private View getCustomImageShowView(){
+
+        View dialogView = View.inflate(SurveyFillActivity.this,R.layout.dialog_show_image,new LinearLayout(SurveyFillActivity.this));
+
+        final ProgressBar progressBar = (ProgressBar) dialogView.findViewById(R.id.imageLoadingProgressBar);
+        ImageView imageOfQuestion = (ImageView) dialogView.findViewById(R.id.imageOfQuestion);
+
+        imageLoader.displayImage(Constants.IMAGE_ACCESS_URL + surveyId + "QUES" + currentQuestion+".png", imageOfQuestion, options, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String s, View view) {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onLoadingFailed(String s, View view, FailReason failReason) {
+                hideImageDialog();
+                Utils.toastS(SurveyFillActivity.this,"No Image Available");
+            }
+
+            @Override
+            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onLoadingCancelled(String s, View view) {
+
+            }
+        });
+
+
+        return dialogView;
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -263,7 +333,7 @@ public class SurveyFillActivity extends AppCompatActivity {
         String questionStatement = jsonObject.getString("QText");
         List<String> choicesList = new ArrayList<>();
 
-        return new FilledChoiceQuestion(false,questionStatement,choicesList,-3);
+        return new FilledChoiceQuestion(false,questionStatement,choicesList,-3); ///-3 is just a random number ....
 
     }
 
@@ -318,7 +388,7 @@ public class SurveyFillActivity extends AppCompatActivity {
                 }
 
                 try{
-                    newQuestionList.get(i).setChoicesList(convertItemDetailsIntoList(jsonArray.getJSONObject(0)));}
+                    newQuestionList.get(i).setChoicesList(convertItemDetailsIntoList(jsonArray));}
                 catch (JSONException j){
                     j.printStackTrace();
                 }
@@ -378,16 +448,22 @@ public class SurveyFillActivity extends AppCompatActivity {
 
     }
 
-    private List<String> convertItemDetailsIntoList(JSONObject jsonObject) throws  JSONException{
-        String arrayChoice = jsonObject.getString("Option");
-        String newString = arrayChoice.substring(1,arrayChoice.lastIndexOf("]"));
-        Log.e("the length is-",""+Arrays.asList(newString.split(",")).size());
-        return Arrays.asList(newString.split(","));
+
+    private List<String> convertItemDetailsIntoList(JSONArray jsonArray) throws  JSONException{
+
+
+        List<String> theChoiceList = new ArrayList<>();
+
+        for (int i=0;i<jsonArray.length();i++){
+            theChoiceList.add(jsonArray.getJSONObject(i).getString("Option"));
+        }
+
+        return theChoiceList;
 
         //Log.e("length of th list is",""+list.size());
     }
 
-    protected class SubmitFilledSurvey extends AsyncTask<String,Void,Void>{
+    protected class SubmitFilledSurvey extends AsyncTask<String,Void,String>{
 
         MaterialDialog progressDialog;
 
@@ -405,17 +481,32 @@ public class SurveyFillActivity extends AppCompatActivity {
 
 
         @Override
-        protected Void doInBackground(String... params) {
+        protected String doInBackground(String... params) {
 
-            String requestUrl = "";
+            String requestUrl = "http://contactsyncer.com/submitsurvey.php";
 
             JSONObject jsonObject = new JSONObject();
 
+            int userId ;
+
+            try
+            {
+                userId = sharedPrefUtil.getUserInfo().getId();
+            }
+
+            catch (NullPointerException e){
+
+                userId = -1;
+                e.printStackTrace();
+            }
+
+
             try{
-                jsonObject.put("userID",sharedPrefUtil.getUserInfo().getId());
+
+                jsonObject.put("userID",userId);
                 jsonObject.put("surveyID",surveyId);
                 jsonObject.put("qID",getSendQuesArray());
-                jsonObject.put("option",getSendChoicesArray());}
+                jsonObject.put("optionselected",getSendChoicesArray());}
             catch (JSONException j){
                 j.printStackTrace();
             }
@@ -433,16 +524,43 @@ public class SurveyFillActivity extends AppCompatActivity {
                 return null;
             }
 
+            Log.e("submitted", "" + response);
 
-
-            return null;
+            return response;
         }
 
+
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+        protected void onPostExecute(final String s) {
+            super.onPostExecute(s);
 
             progressDialog.cancel();
+
+            if (s!=null){
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Utils.toastS(SurveyFillActivity.this, "Your Responses Are Succesfully Stored");
+
+                    }
+                });
+
+
+                SurveyFillActivity.this.finish();
+            }
+
+            else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Utils.toastS(SurveyFillActivity.this, "Error in Submitting Responses .....Try Again");
+
+                    }
+                });
+            }
+
+
         }
     }
 

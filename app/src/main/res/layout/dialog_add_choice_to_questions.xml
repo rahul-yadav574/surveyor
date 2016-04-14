@@ -11,24 +11,76 @@
         android:maxLines="3"
         android:textColor="@android:color/black"
         android:id="@+id/questionStatementInChoiceDialog"/>
+    <ImageView
+        android:layout_below="@+id/questionStatementInChoiceDialog"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:padding="20dp"
+        android:visibility="gone"
+        android:scaleType="fitXY"
+        android:id="@+id/questionImageView" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:maxLines="1"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        android:id="@+id/questionImageTextInChoiceDialog"
+        android:layout_below="@+id/questionStatementInChoiceDialog"/>
 
     <android.support.v7.widget.RecyclerView
-        android:layout_below="@+id/questionStatementInChoiceDialog"
+        android:layout_below="@+id/questionImageView"
         android:layout_marginTop="10dp"
         android:id="@+id/choicesRecyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
+        android:layout_above="@+id/buttonsLayout"
         />
     <RelativeLayout
+        android:id="@+id/buttonsLayout"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         >
 
+       <LinearLayout
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/upperButtonLayout">
         <Button
-            android:layout_below="@+id/addNewChoice"
+            android:layout_margin="10dp"
+            android:id="@+id/addNewChoice"
+            android:text="@string/btn_add_new_choice"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:padding="10dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            />
+
+           <Button
+               android:layout_margin="10dp"
+               android:id="@+id/addImageToQuestion"
+               android:text="@string/btn_add_new_image"
+               android:background="@color/colorPrimary"
+               android:textColor="@android:color/white"
+               android:padding="10dp"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:layout_height="wrap_content"
+               />
+
+       </LinearLayout>
+
+        <Button
+            android:layout_below="@+id/upperButtonLayout"
             android:id="@+id/doneEnteringChoices"
             android:text="@string/md_done_label"
             android:background="@color/colorPrimary"
@@ -37,16 +89,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"/>
-        <Button
-
-            android:id="@+id/addNewChoice"
-            android:text="@string/btn_add_new_choice"
-            android:background="@color/colorPrimary"
-            android:textColor="@android:color/white"
-            android:padding="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 

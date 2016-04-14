@@ -11,4 +11,16 @@
     android:background="?attr/colorPrimary"
     local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     app:layout_scrollFlags="scroll|enterAlways|snap"
-    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
+
+    <TextView
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/toolbar_custom_title"
+        android:visibility="visible"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"/>
+
+</android.support.v7.widget.Toolbar>

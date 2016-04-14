@@ -20,6 +20,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Scanner;
 
 /**
  * Created by arcks on 30/1/16.
@@ -81,7 +82,7 @@ public class Utils {
             urlConnection.setDoInput(true);
 
             is = new BufferedInputStream(urlConnection.getInputStream());
-            java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+            Scanner s = new Scanner(is).useDelimiter("\\A");
             if(s.hasNext()){
                 jsonstring= s.next();
             }
@@ -124,6 +125,10 @@ public class Utils {
         InputStream is;
         String jsonstring1 ="";
         JSONObject jsonObject1= null;
+
+        JSONObject j = new JSONObject();
+
+
 
         try{
             String jsonstring = jsonObject.toString();

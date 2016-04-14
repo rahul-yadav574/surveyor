@@ -14,7 +14,42 @@
     <android.support.v7.widget.RecyclerView
         android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/mySurveysList"/>
+
+    <TextView
+        android:layout_below="@+id/mySurveysList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/my_taken_survey_header"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/mySurveysList"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/myTakenSurveysList"/>
+    <TextView
+        android:id="@+id/noDataText"
+        android:visibility="gone"
+        android:gravity="center"
+        android:padding="20dp"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="20sp"
+        android:layout_centerInParent="true"
+        android:text="@string/no_data_my_survey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:visibility="gone"
+        android:id="@+id/createNewSurveyFromMySurvey"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:src="@android:drawable/ic_input_add"/>
 
 </RelativeLayout>

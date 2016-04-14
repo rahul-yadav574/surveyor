@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Surveyour</string>
-    <string name="title_activity_landing">Home</string>
+    <string name="app_name">Participate Me</string>
+    <string name="title_activity_landing">Landing</string>
     
     <string name="facebook_app_id">1507646296208673</string>
     <string name="google_client_id">440907172906-saftu63k8d532c9ldn9ftajr255qmjjo.apps.googleusercontent.com</string>
@@ -10,6 +10,7 @@
     <string name="btn_login">Log In</string>
     <string name="btn_trouble_sign_in">Trouble Signing In???</string>
     <string name="btn_add_new_choice">Add New Choice</string>
+    <string name="btn_add_new_image">Add New Image</string>
     <string name="sign_in_text">Sign In To Your Account</string>
     <string name="separator_or">OR</string>
     <string name="sign_in_fb">Sign In With Facebook</string>
@@ -21,8 +22,9 @@
     <string name="hint_sign_up_confirm_password">Confirm Your Password</string>
     <string name="btn_sign_up">Sign Up</string>
     <string name="welcome_tile">Welcome!!</string>
-    <string name="welcome_text">Welcome To Surveyor - the world\'s leading survey platform. Create Your Survey and use the insights to make better decisions </string>
+    <string name="welcome_text">Welcome To Participate Me - the world\'s leading survey platform. Create Your Survey and use the insights to make better decisions </string>
     <string name="create_tile_1">Create</string>
+    <string name="show_image">Show Image Of The Question If Available</string>
     <string name="create_tile_2">Create Your Own Surveys</string>
     <string name="create_text">Create Your Next Survey And Use Insights To Make Better Decisions</string>
     <string name="btn_create_survey">Create Survey</string>
@@ -32,7 +34,7 @@
     <string name="nav_help">Help</string>
     <string name="nav_feedback">Feedback</string>
     <string name="nav_my_surveys">My Surveys</string>
-    <string name="title_activity_activity_login_sign_up">Surveyour</string>
+    <string name="title_activity_activity_login_sign_up">Participate Me</string>
     <string name="err_email_input">Not A Valid E-mail</string>
     <string name="err_password_input">Not A Valid Password</string>
     <string name="err_name_input">Not A Valid E-mail</string>
@@ -56,11 +58,14 @@
     <string name="title_tab_non_profit">NON PROFIT</string>
     <string name="title_tab_political">POLITICAL</string>
     <string name="dialog_create_survey_dialog_title">Create Survey</string>
+    <string name="dialog_choose_survey_options_title">Choose A Option</string>
     <string name="dialog_create_survey_tile_1">Start with one Of our expert survey </string>
     <string name="dialog_create_survey_tile_2">templates or create  a new survey from</string>
     <string name="dialog_create_survey_tile_3">scratch</string>
     <string name="dialog_btn_new_survey_text">New Survey</string>
+    <string name="dialog_btn_show_survey_result">Survey Results</string>
     <string name="dialog_btn_browse_templates_text">Browse Template Gallery</string>
+    <string name="dialog_btn_share_survey_text">Share Survey</string>
     <string name="dialog_btn_cancel_text">Cancel</string>
     <string name="btn_update_email">Update E-Mail</string>
     <string name="btn_update_password">Update Password</string>
@@ -87,6 +92,12 @@
 
     <string name="next">NEXT</string>
     <string name="prev">PREV</string>
+    <string name="title_activity_show_results">ShowResultsActivity</string>
+    <string name="login_screen_hint_text">Choose Your Social Network To Login...</string>
+    <string name="no_data_my_survey">Looks You Haven\'t Created Any Survey Yet...Click On Button Below And Create A New One</string>
 
-
+    <string name="dialog_survey_share_text">Share A Link To Your Survey Right Now OR Share It Later From My Surveys..</string>
+    <string name="share_survey_later_button">Share Later</string>
+    <string name="survey_taken_by_you_hint">This Survey Is Taken By You</string>
+    <string name="my_taken_survey_header">My Taken Surveys</string>
 </resources>

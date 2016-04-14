@@ -84,7 +84,7 @@ public class QuestionAdapter extends RecyclerView.Adapter <QuestionAdapter.Quest
 
     private void startEditingQuestionProcess(final Question question, final int position){
 
-        View dialogView = View.inflate(context, R.layout.dialog_edit_survey, new RelativeLayout(context));
+        final View dialogView = View.inflate(context, R.layout.dialog_edit_survey, new RelativeLayout(context));
 
 
          final MaterialDialog dialog = new MaterialDialog.Builder(context)
@@ -93,12 +93,20 @@ public class QuestionAdapter extends RecyclerView.Adapter <QuestionAdapter.Quest
 
         final TextView questionStatement = (TextView) dialogView.findViewById(R.id.questionStatementInChoiceDialog);
         ImageButton editQuestionStatement = (ImageButton) dialogView.findViewById(R.id.changeQuestionStatement);
+        TextView imageName = (TextView) dialogView.findViewById(R.id.imageNameInChoiceDialog);
+        ImageButton changeImageButton = (ImageButton) dialogView.findViewById(R.id.changeImage);
+
+        if(question.getQuestionImage()==null){
+            dialogView.findViewById(R.id.imageContainer).setVisibility(View.GONE);
+        }
+
+        imageName.setText("Image Added");
 
         Button addNewChoice = (Button) dialogView.findViewById(R.id.editAddNewChoice);
         Button doneEditing = (Button) dialogView.findViewById(R.id.editDoneEnteringChoices);
 
         RecyclerView editChoicesRecyclerView = (RecyclerView) dialogView.findViewById(R.id.choicesEditRecyclerview);
-        editChoicesRecyclerView.addItemDecoration(new DividerItemDecoration(context.getDrawable(R.drawable.dividers)));
+        editChoicesRecyclerView.addItemDecoration(new DividerItemDecoration(context.getResources().getDrawable(R.drawable.dividers)));
         final EditChoiceAdapter adapter = new EditChoiceAdapter(context,question.getChoicesList());
 
         editChoicesRecyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -146,6 +154,15 @@ public class QuestionAdapter extends RecyclerView.Adapter <QuestionAdapter.Quest
                 questionList.get(position).setChoicesList(adapter.getChoiceList());
                 notifyDataSetChanged();
                 dialog.cancel();
+            }
+        });
+
+        changeImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                question.setQuestionImageName(null);
+                question.setQuestionImage(null);
+                dialogView.findViewById(R.id.imageContainer).setVisibility(View.GONE);
             }
         });
 

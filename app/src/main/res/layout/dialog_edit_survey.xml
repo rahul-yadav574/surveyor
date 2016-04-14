@@ -27,16 +27,44 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_below="@+id/questionContainer"
+        android:id="@+id/imageContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:layout_toLeftOf="@+id/changeImage"
+            android:layout_toStartOf="@+id/changeImage"
+            android:textColor="@android:color/black"
+            android:id="@+id/imageNameInChoiceDialog"/>
+        <ImageButton
+            android:background="@android:drawable/ic_menu_edit"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/changeImage"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
 
     <android.support.v7.widget.RecyclerView
-        android:layout_below="@+id/questionContainer"
+        android:layout_below="@+id/imageContainer"
         android:layout_marginTop="2dp"
         android:id="@+id/choicesEditRecyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
+        android:layout_above="@+id/buttonsLayout"
         />
     <RelativeLayout
+        android:id="@+id/buttonsLayout"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

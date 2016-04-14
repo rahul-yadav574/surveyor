@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/windowBackground">
+
+    <ImageView
+        android:contentDescription="@string/app_name"
+        android:src="@mipmap/ic_launcher"
+        android:scaleType="fitXY"
+        android:layout_centerInParent="true"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:id="@+id/companyLogo"/>
 
 
     <LinearLayout
@@ -19,7 +29,7 @@
             android:id="@+id/startLoginFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <Button
+       <!-- <Button
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="20dp"
@@ -29,7 +39,7 @@
             android:text="@string/btn_sign_up"
             android:id="@+id/startSignUpFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content" />-->
     </LinearLayout>
 
 </RelativeLayout>
