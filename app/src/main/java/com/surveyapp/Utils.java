@@ -161,10 +161,12 @@ public class Utils {
             Log.d("error","Exception in Post");
         }
 
+        Log.e("eeroor",jsonstring1);
+
         try {
             jsonObject1 = new JSONObject(jsonstring1);
         } catch (JSONException e) {
-            Log.d("error", "Json exception in POST ");
+            e.printStackTrace();
         }
 
         return jsonObject1;

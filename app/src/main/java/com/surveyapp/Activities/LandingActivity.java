@@ -93,6 +93,13 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
                         .commit();
                 break;
             case R.id.navAbout:
+
+                new MaterialDialog.Builder(LandingActivity.this)
+                        .cancelable(true)
+                        .title("About Participate Me")
+                        .content("We Are The Leading Survey Taking Organisation...")
+                        .show();
+
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.navFeedBack:
@@ -103,7 +110,6 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
                             @Override
                             public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
                                 String feedback = input.toString();
-
                                 new SubmitFeedBackExecutor(feedback).execute();
                             }
                         })
@@ -128,6 +134,11 @@ public class LandingActivity extends AppCompatActivity implements NavigationView
                 break;*/
             case R.id.navHelp:
                 drawerLayout.closeDrawer(GravityCompat.START);
+
+                new MaterialDialog.Builder(LandingActivity.this)
+                        .title("Need Help !!")
+                        .content("In  Case You Need Any Help You Can Visit Our website www.participateme.com")
+                        .show();
                 break;
         }
     }
