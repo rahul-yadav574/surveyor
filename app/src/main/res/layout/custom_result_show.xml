@@ -18,17 +18,17 @@
 
         android:id="@+id/choiceStatementResult"/>
 
-    <!--<ProgressBar
+    <ProgressBar
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:layout_alignBottom="@+id/choicesResponsesCount"
-        android:layout_toLeftOf="@id/choicesResponsesCount"
-        android:layout_toRightOf="@+id/choiceStatementResult"
-        android:layout_marginTop="30dp"
-        android:progress="50"
-        android:progressDrawable="@drawable/progressbar_design" />-->
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_below="@+id/choiceStatementResult"
+        android:progressDrawable="@drawable/progressbar_design"
+        />
 
     <TextView
         android:layout_marginLeft="10dp"

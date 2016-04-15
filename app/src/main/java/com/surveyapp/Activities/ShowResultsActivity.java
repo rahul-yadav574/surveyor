@@ -20,6 +20,7 @@ import com.surveyapp.CustomObjects.FilledChoiceQuestion;
 import com.surveyapp.CustomObjects.Result;
 import com.surveyapp.CustomObjects.ResultChoice;
 import com.surveyapp.R;
+import com.surveyapp.Utilities.DividerItemDecoration;
 import com.surveyapp.Utils;
 
 import org.json.JSONArray;
@@ -68,6 +69,7 @@ public class ShowResultsActivity extends AppCompatActivity {
         adapter = new ShowResultAdapter(ShowResultsActivity.this,resultList);
         resultChoiceRecyclerView.setAdapter(adapter);
         resultChoiceRecyclerView.setLayoutManager(new LinearLayoutManager(ShowResultsActivity.this));
+        resultChoiceRecyclerView.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.dividers)));
 
         nextQues.setOnClickListener(new View.OnClickListener() {
             @Override
